@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=ListaArticulos
+comment0.text=\n\ lista\ de\ articulos\ modela\ una\ lista\ con\ los\ articulos\ generada\n\ principalmente\ con\ datos\ basicos\ a\ la\ cual\ l\ se\ le\ pueden\n\ agregar\ o\ quitar\ elementos\n\ \n\ @author\ Sebastian\ Carrillo\ -\ Jhon\ Melendez\ \n\ @version\ v1\n
+comment1.params=fechaIni\ dias\ noches\ clima\ balneario
+comment1.target=ListaArticulos(java.util.Date,\ int,\ int,\ Clima,\ boolean)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ ListaArticulos\n\ toma\ la\ lista\ basica\ de\ articulos\ para\ crear\ la\ lista\ del\ viaje\n
+comment2.params=lista
+comment2.target=java.util.ArrayList\ generarLista(java.util.ArrayList)
+comment2.text=\n\ generar\ la\ lista\ del\ viaje\n\ ojooo\ solo\ se\ debe\ generar\ una\ vez,toma\ los\ datos\ \n\ del\ viaje\ y\ genera\ una\ lista\ apropiada\n\ si\ ya\ existesolo\ debe\ poderse\ agregar\ \n\ \n\ @return\ arreglo\ con\ la\ lista\ basica\ \n
+comment3.params=nuevo
+comment3.target=boolean\ agregaArticulo(Articulo)
+comment3.text=\n\ agrega\ un\ articulo\ lista\ de\ articulos\n\ debe\ validar\ que\ el\ elemento\ no\ se\ haya\ agregado\ ya,\ pasar\ a\ minusculas,\ quitar\ espacion,\ comparar...\n\ \n\ @param\ \ nuevo\ articulo\ a\ agregar\n\ @return\ \ \ \ true\ si\ se\ agrego\ exitosamente,\ false\ si\ no\n
+comment4.params=articulo
+comment4.target=boolean\ eliminaArticulo(Articulo)
+comment4.text=\n\ elimina\ una\ actividad\ deseada\n\ TODO\:\ se\ podria\ pasar\ el\ nombre\ del\ articulo\ y\ buscarlo\ o\ solo\ pasar\ el\ articulo,\ cual\ se\ nos\ facilita?\n\ \ \n\ @param\ \ articulo\ a\ eliminar\n\ @return\ \ \ \ true\ si\ se\ elimino\ exitosamente,\ false\ si\ no\n
+comment5.params=nombre
+comment5.target=Articulo\ buscarArticuloPorIndex(java.lang.String)
+comment5.text=\n\ encontrar\ actividad\ segun\ indice\n\ \n\ @param\ \ index\ int\ de\ la\ actividad\n\ @return\ \ \ \ actividad\ encontrada\ o\ null\n
+numComments=6
