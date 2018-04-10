@@ -4,6 +4,8 @@ import java.util.Date;
  * lista de articulos modela una lista con los articulos generada
  * principalmente con datos basicos a la cual l se le pueden
  * agregar o quitar elementos
+ * jusificacion de esta clase:(seguridad) poder hacer programacion defensiva a la hora de agregar elementos a la lista, puesto que si es un 
+ * atributo en viaje podria agregar elementos de forma descontrolada, tambien quitarle obligaciones a la clase viajes.
  * 
  * @author Sebastian Carrillo - Jhon Melendez 
  * @version v1

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ListaArticulos
-comment0.text=\n\ lista\ de\ articulos\ modela\ una\ lista\ con\ los\ articulos\ generada\n\ principalmente\ con\ datos\ basicos\ a\ la\ cual\ l\ se\ le\ pueden\n\ agregar\ o\ quitar\ elementos\n\ \n\ @author\ Sebastian\ Carrillo\ -\ Jhon\ Melendez\ \n\ @version\ v1\n
+comment0.text=\n\ lista\ de\ articulos\ modela\ una\ lista\ con\ los\ articulos\ generada\n\ principalmente\ con\ datos\ basicos\ a\ la\ cual\ l\ se\ le\ pueden\n\ agregar\ o\ quitar\ elementos\n\ jusificacion\ de\ esta\ clase\:(seguridad)\ poder\ hacer\ programacion\ defensiva\ a\ la\ hora\ de\ agregar\ elementos\ a\ la\ lista,\ puesto\ que\ si\ es\ un\ \n\ atributo\ en\ viaje\ podria\ agregar\ elementos\ de\ forma\ descontrolada,\ tambien\ quitarle\ obligaciones\ a\ la\ clase\ viajes.\n\ \n\ @author\ Sebastian\ Carrillo\ -\ Jhon\ Melendez\ \n\ @version\ v1\n
 comment1.params=fechaIni\ dias\ noches\ clima\ balneario
 comment1.target=ListaArticulos(java.util.Date,\ int,\ int,\ Clima,\ boolean)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ ListaArticulos\n\ toma\ la\ lista\ basica\ de\ articulos\ para\ crear\ la\ lista\ del\ viaje\n
