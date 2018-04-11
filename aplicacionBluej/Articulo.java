@@ -12,17 +12,29 @@ public class Articulo
     private String descripcion;
     private int cantidad;
     private boolean empacado;
+    private Prioridad prioridad;
 
     /**
      * Constructor for objects of class Articulo
      * validar cantidad mayor a 0
      * almacenar nombres con un estandar todo minuscula quitar espacion inicio final
      */
-    public Articulo(String nombre, String descripcion, int cantidad)
+    public Articulo(String nombre, String descripcion, int cantidad , Prioridad prioridad)
     {
-        // initialise instance variables
-       
-        empacado = false;
+        /**
+         * no sabemos que hacer cuando el nombre esta mal
+         */
+       if(comprobarNombre(nombre) == true)
+        {
+           this.nombre = nombre;
+        }else 
+        {
+            this.nombre=null;
+        }
+       this.descripcion = descripcion;
+       this.cantidad =cantidad;
+       empacado = false;
+       this.prioridad = prioridad;
     }
 
     /**
@@ -32,7 +44,6 @@ public class Articulo
      */
     public String getNombre()
     {
-        // put your code here
         return nombre;
     }
     
@@ -69,16 +80,31 @@ public class Articulo
         return empacado;
     }
     
+        /**
+     * permite obtener laprioriad del articulo
+     * 
+     * @return     prioridad
+     */
+    public Prioridad getPrioriad()
+    {
+        // put your code here
+        return prioridad;
+    }
+    
      /**
      * permite modificar el nombre del articulo
-     * pasar el nombre al estandar antes de guardar
+     * pasar el nombre al estandar antes de guardar, que no este vacio
+     * 
      * 
      * @param     nuevo nombre del articulo
      */
     public void setNombre(String nombre)
     {
         // put your code here
-        
+        if(comprobarNombre(nombre))
+        {
+            this.nombre = nombre;
+        }
     }
     
     /**
@@ -89,18 +115,23 @@ public class Articulo
     public void setDescripcion(String desc)
     {
         // put your code here
-        
+        descripcion=desc;
     }
     
     /**
      * permite modificar la cantidad del articulo
      * validar mayor a 0
      * @param    nueva canidad
+     * @return    boolean de confirmacion
      */
-    public void setCantidad(int cant)
+    public boolean setCantidad(int cant)
     {
-        // put your code here
-        
+        if(cant > 0)
+        {
+            cantidad = cant;
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -108,11 +139,10 @@ public class Articulo
      * 
      * @param    nuevo estado true, empacado,false no empacado
      */
-    public void setCantidad( boolean estado )
+    public void setEstado( boolean estado )
     {
         // put your code here
         empacado = estado;
-        
     }
     
     /**
@@ -120,9 +150,31 @@ public class Articulo
      *
      * @return boolean de confirmacion 
      */
-    public boolean setPrioridad( Prioridad prior)
+    public void setPrioridad( Prioridad prior)
     {
         // put your code here
-        return false;
+        prioridad = prior;
+    }
+    
+    /**
+     * metodo para comprobar que el nombre sea permitido
+     * 
+     * @return boolean falso si no sirve, true en caso contrario
+     */
+    public boolean comprobarNombre(String nombre)
+    {
+        if(nombre.length()<1)
+        {
+            if(Character.isLetter(nombre.charAt(0))== true)
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
+        }else
+        {
+            return false;
+        }
     }
 }

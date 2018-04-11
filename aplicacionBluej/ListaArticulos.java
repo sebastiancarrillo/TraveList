@@ -78,6 +78,6 @@ public class ListaArticulos
     public Articulo buscarArticuloPorIndex( String nombre )
     {
         
-        return new Articulo( nombre, "", 0);
+        return new Articulo( nombre, "", 0,null);
     }
 }
