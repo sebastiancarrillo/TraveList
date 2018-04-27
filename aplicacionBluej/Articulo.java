@@ -1,4 +1,5 @@
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * modela un articulo con nombre descripcion canidad y estado
  * 
@@ -18,23 +19,17 @@ public class Articulo
      * Constructor for objects of class Articulo
      * validar cantidad mayor a 0
      * almacenar nombres con un estandar todo minuscula quitar espacion inicio final
-     */
+     *TODO: validar nombre desde la calse donde se crea
+      */
     public Articulo(String nombre, String descripcion, int cantidad , Prioridad prioridad)
     {
-        /**
-         * no sabemos que hacer cuando el nombre esta mal
-         */
-       if(comprobarNombre(nombre) == true)
-        {
-           this.nombre = nombre;
-        }else 
-        {
-            this.nombre=null;
-        }
-       this.descripcion = descripcion;
-       this.cantidad =cantidad;
-       empacado = false;
-       this.prioridad = prioridad;
+   
+        this.nombre = nombre;
+
+        this.descripcion = descripcion;
+        this.cantidad =cantidad;
+        empacado = false;
+        this.prioridad = prioridad;
     }
 
     /**
@@ -46,7 +41,7 @@ public class Articulo
     {
         return nombre;
     }
-    
+
     /**
      * permite obtener la descripcion del articulo
      * 
@@ -57,7 +52,7 @@ public class Articulo
         // put your code here
         return descripcion;
     }
-    
+
     /**
      * permite obtener el nombre del articulo
      * 
@@ -68,7 +63,7 @@ public class Articulo
         // put your code here
         return cantidad;
     }
-    
+
     /**
      * permite obtener el estado del articulo
      * 
@@ -79,8 +74,8 @@ public class Articulo
         // put your code here
         return empacado;
     }
-    
-        /**
+
+    /**
      * permite obtener laprioriad del articulo
      * 
      * @return     prioridad
@@ -90,8 +85,8 @@ public class Articulo
         // put your code here
         return prioridad;
     }
-    
-     /**
+
+    /**
      * permite modificar el nombre del articulo
      * pasar el nombre al estandar antes de guardar, que no este vacio
      * 
@@ -101,12 +96,12 @@ public class Articulo
     public void setNombre(String nombre)
     {
         // put your code here
-        if(comprobarNombre(nombre))
+        if(validaNombre(nombre))
         {
             this.nombre = nombre;
         }
     }
-    
+
     /**
      * permite modificar la descripcion del articulo
      * 
@@ -117,7 +112,7 @@ public class Articulo
         // put your code here
         descripcion=desc;
     }
-    
+
     /**
      * permite modificar la cantidad del articulo
      * validar mayor a 0
@@ -133,7 +128,7 @@ public class Articulo
         }
         return false;
     }
-    
+
     /**
      * permite modificar el estado del articulo
      * 
@@ -144,7 +139,7 @@ public class Articulo
         // put your code here
         empacado = estado;
     }
-    
+
     /**
      * metodo que cambia la prioridad del articulo
      *
@@ -155,26 +150,26 @@ public class Articulo
         // put your code here
         prioridad = prior;
     }
-    
+
     /**
-     * metodo para comprobar que el nombre sea permitido
+     * metodo para validar el nombre del producto
      * 
-     * @return boolean falso si no sirve, true en caso contrario
+     * solo se permiten nombres sin numeros  
+     * 
      */
-    public boolean comprobarNombre(String nombre)
+    public static boolean validaNombre(String nombre)
     {
-        if(nombre.length()<1)
+        //nombre.replaceAll("\\s","").trim().toUpperCase();
+        if(!nombre.equals("") && nombre.length() <= 15 )
         {
-            if(Character.isLetter(nombre.charAt(0))== true)
+            nombre=nombre.replaceAll("\\s","").trim();//quita saltos de linea y espacios
+            Pattern patron = Pattern.compile("[^A-Za-z ]");
+            Matcher encaja = patron.matcher(nombre);
+            if( !encaja.find() )// que sean solo letras
             {
                 return true;
-            }else
-            {
-                return false;
             }
-        }else
-        {
-            return false;
         }
+        return false;
     }
 }
