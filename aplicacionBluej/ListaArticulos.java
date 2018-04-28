@@ -24,7 +24,7 @@ public class ListaArticulos
         // initialise instance variables
     }
 
-     /**
+    /**
      * generar la lista del viaje
      * ojooo solo se debe generar una vez,toma los datos 
      * del viaje y genera una lista apropiada
@@ -45,14 +45,24 @@ public class ListaArticulos
      * @param  nuevo articulo a agregar
      * @return    true si se agrego exitosamente, false si no
      */
-    public boolean agregaArticulo( Articulo nuevo )
+    public boolean agregaArticulo( String nombre, String descripcion, int cantidad , Prioridad prioridad )
     {
         // put your code here
-        return false;
- 
-   }
-   
-   /**
+        try {
+            if(buscarArticuloPorNombre( nombre ) != null){
+                Articulo nuevoArt = new Articulo(nombre, descripcion, cantidad, prioridad);
+
+                listaArticulos.add( nuevoArt );
+                return true;
+            }
+            else{return false;}
+        } catch (RuntimeException e) {
+            //System.out.println("holaaaaaaaaaaaaaaa");
+            return false;
+        } 
+    }
+
+    /**
      * elimina una actividad deseada
      * TODO: se podria pasar el nombre del articulo y buscarlo o solo pasar el articulo, cual se nos facilita?
      *  
@@ -62,22 +72,21 @@ public class ListaArticulos
     public boolean eliminaArticulo( Articulo articulo )
     {
         // put your code here
-        
+
         /////////TODO: escoger mejor metodo de eliminar una actividad
-     ////////////indice o actividad
+        ////////////indice o actividad
         return false;
     }
-    
-    
+
     /**
      * encontrar actividad segun indice
      * 
      * @param  index int de la actividad
      * @return    actividad encontrada o null
      */
-    public Articulo buscarArticuloPorIndex( String nombre )
+    public Articulo buscarArticuloPorNombre( String nombre )
     {
-        
+
         return new Articulo( nombre, "", 0,null);
     }
 }

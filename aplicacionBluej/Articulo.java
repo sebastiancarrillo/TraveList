@@ -19,13 +19,15 @@ public class Articulo
      * Constructor for objects of class Articulo
      * validar cantidad mayor a 0
      * almacenar nombres con un estandar todo minuscula quitar espacion inicio final
-     *TODO: validar nombre desde la calse donde se crea
-      */
+     *TODO: selanza una exepcion si elnombre no es valido
+     */
     public Articulo(String nombre, String descripcion, int cantidad , Prioridad prioridad)
     {
-   
-        this.nombre = nombre;
-
+        if (!validaNombre(nombre))
+        {         
+            throw new RuntimeException("nombre invalido, no pude tener numeros");
+        }
+        this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
         this.descripcion = descripcion;
         this.cantidad =cantidad;
         empacado = false;
@@ -92,13 +94,19 @@ public class Articulo
      * 
      * 
      * @param     nuevo nombre del articulo
+     * @return     boolean para confirmacion
      */
-    public void setNombre(String nombre)
+    public boolean setNombre(String nombre)
     {
         // put your code here
         if(validaNombre(nombre))
         {
-            this.nombre = nombre;
+            this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -157,10 +165,10 @@ public class Articulo
      * solo se permiten nombres sin numeros  
      * 
      */
-    public static boolean validaNombre(String nombre)
+    public  boolean validaNombre(String nombre)
     {
         //nombre.replaceAll("\\s","").trim().toUpperCase();
-        if(!nombre.equals("") && nombre.length() <= 15 )
+        if(!nombre.equals("") && nombre.length() <= 20 )
         {
             nombre=nombre.replaceAll("\\s","").trim();//quita saltos de linea y espacios
             Pattern patron = Pattern.compile("[^A-Za-z ]");
