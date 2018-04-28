@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 /**
  * lista de articulos modela una lista con los articulos generada
  * principalmente con datos basicos a la cual l se le pueden
@@ -18,10 +19,14 @@ public class ListaArticulos
     /**
      * Constructor for objects of class ListaArticulos
      * toma la lista basica de articulos para crear la lista del viaje
+     * @param genero es un entero 0-mujer  1-hombre 
      */
-    public ListaArticulos( Date fechaIni, int dias, int noches, Clima clima, boolean balneario )//debe pedir los datos del viaje duracion, baño...
+    public ListaArticulos( Date fechaIni, int dias, int noches, Clima clima, boolean balneario, int genero)//debe pedir los datos del viaje duracion, baño...
     {
         // initialise instance variables
+        listaArticulos =new ArrayList<Articulo>();
+        //generar la lista basica segun sexo del usuario y datos del viaje
+        generarLista( fechaIni, dias, noches, clima, balneario, genero);
     }
 
     /**
@@ -30,17 +35,25 @@ public class ListaArticulos
      * del viaje y genera una lista apropiada
      * si ya existesolo debe poderse agregar 
      * 
-     * @return arreglo con la lista basica 
+     * @ param  Datefehca inicio, int cantidad de dias, int cantidad noche, numb clima, boolean confirmacion balneario
      */
-    public ArrayList generarLista( ArrayList lista )
+    public void generarLista( Date fechaIni, int dias, int noches, Clima clima, boolean balneario, int genero)
     {
         // initialise instance variables
-        return lista;
+        if( genero == 0 ){ //aca se agregan cosas que solo llevan las mujeres
+            agregaArticulo( "maquillaje","", 1 , Prioridad.MEDIA );
+            agregaArticulo( "Toallas higienicas","paquete", 1 , Prioridad.BAJA );//TODO:poner que se agregue esto esdecierta cantidad de dias
+            agregaArticulo( "uñas","paquete", 1 , Prioridad.BAJA );
+            
+        }else{//lo que solo llevan los hombres
+            
+        }
+        
     }
 
     /**
      * agrega un articulo lista de articulos
-     * debe validar que el elemento no se haya agregado ya, pasar a minusculas, quitar espacion, comparar...
+     * debe validar que el elemento no se haya agregado ya, comparar...
      * 
      * @param  nuevo articulo a agregar
      * @return    true si se agrego exitosamente, false si no
@@ -51,11 +64,10 @@ public class ListaArticulos
         try {
             if(buscarArticuloPorNombre( nombre ) != null){
                 Articulo nuevoArt = new Articulo(nombre, descripcion, cantidad, prioridad);
-
                 listaArticulos.add( nuevoArt );
                 return true;
             }
-            else{return false;}
+            else{return false;}//ya existe un articulo con ese nombre TODO: qeu hacer cuando ya existe???????????
         } catch (RuntimeException e) {
             //System.out.println("holaaaaaaaaaaaaaaa");
             return false;
@@ -71,22 +83,29 @@ public class ListaArticulos
      */
     public boolean eliminaArticulo( Articulo articulo )
     {
-        // put your code here
-
-        /////////TODO: escoger mejor metodo de eliminar una actividad
-        ////////////indice o actividad
-        return false;
+        return listaArticulos.remove(articulo);
     }
 
     /**
-     * encontrar actividad segun indice
+     * encontrar articulo segun indice
      * 
-     * @param  index int de la actividad
+     * @param  nombre del articulo
      * @return    actividad encontrada o null
      */
     public Articulo buscarArticuloPorNombre( String nombre )
     {
-
-        return new Articulo( nombre, "", 0,null);
+        if( listaArticulos.size()>=1 ){
+            Iterator <Articulo> it = listaArticulos.iterator();
+            while(it.hasNext())
+            {
+                Articulo art = it.next();
+                String nomb = nombre.replaceAll("\\s","").trim().toUpperCase();
+                if( art.getNombre().equals(nomb))
+                {
+                    return art;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -26,10 +26,10 @@ public class ListaViajes
      * TODO:validar la fecha y los dias
 
      */
-    public boolean agregarViaje(Date fechaIni, int dias, int noches, Clima clima, boolean balneario)
+    public boolean agregarViaje(Date fechaIni, int dias, int noches, Clima clima, boolean balneario, int genero)
     {
         // put your code here
-        Viaje viaje = new Viaje( fechaIni, dias, noches, clima, balneario);
+        Viaje viaje = new Viaje( fechaIni, dias, noches, clima, balneario,1);//1 es un hombre
         viajes.add(viaje);
         
         return false;
