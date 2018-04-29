@@ -17,6 +17,7 @@ public class Viaje
     private int noches;//duracion
     private Clima clima;  
     private boolean baño;  // indica si hay un cuerpo de agua cercano
+    private int genero;
    
     /**
      * Constructor for objects of class Viaje
@@ -27,7 +28,7 @@ public class Viaje
     {
         ArrayList<String> listaBasica = generaListaActiviadesBasica();
         itinerario = new Itinerario(listaBasica);
-        listaArticulos = new ListaArticulos(fechaIni, dias, noches, clima, balneario, 1);//1 es un hombre 0una mujera
+        listaArticulos = new ListaArticulos(dias, noches, clima, balneario, 1);//1 es un hombre 0una mujera
         
         // initialise instance variables
     } 

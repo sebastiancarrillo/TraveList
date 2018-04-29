@@ -27,9 +27,13 @@ public class Articulo
         {         
             throw new RuntimeException("nombre invalido, no pude tener numeros");
         }
-        this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+        this.nombre = nombre.trim().toUpperCase();
         this.descripcion = descripcion;
-        this.cantidad =cantidad;
+        if(cantidad>=1){
+            this.cantidad =cantidad;
+        }else{
+            this.cantidad=1;
+        }
         empacado = false;
         this.prioridad = prioridad;
     }
@@ -101,7 +105,7 @@ public class Articulo
         // put your code here
         if(validaNombre(nombre))
         {
-            this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+            this.nombre = nombre.trim().toUpperCase();
             return true;
         }
         else
@@ -129,7 +133,7 @@ public class Articulo
      */
     public boolean setCantidad(int cant)
     {
-        if(cant > 0)
+        if( cant > 0 )
         {
             cantidad = cant;
             return true;
@@ -170,8 +174,8 @@ public class Articulo
         //nombre.replaceAll("\\s","").trim().toUpperCase();
         if(!nombre.equals("") && nombre.length() <= 20 )
         {
-            nombre=nombre.replaceAll("\\s","").trim();//quita saltos de linea y espacios
-            Pattern patron = Pattern.compile("[^A-Za-z ]");
+            nombre=nombre.trim().toUpperCase();//quita saltos de linea y espacios
+            Pattern patron = Pattern.compile("[^A-Za-z,ñ ]");
             Matcher encaja = patron.matcher(nombre);
             if( !encaja.find() )// que sean solo letras
             {
