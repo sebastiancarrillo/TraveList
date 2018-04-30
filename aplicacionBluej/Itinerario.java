@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Date;
 /**
  * Itinerario es una lista de actividadas programadas para 
  * el viaje, se podran modificar o agremas mas actividades
@@ -45,14 +46,26 @@ public class Itinerario
      * @param  nueva activida a agregar
      * @return    true si se agrego exitosamente, false si no
      */
-    public void agregaActividad( Actividad nueva )
+    public boolean agregaActividad( Actividad nueva )
     {
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
+        boolean busy = true;
         while(it.hasNext()){
             actividad = it.next();
-            //Como obtengo el tiempo de este objeto Time ver LocalTime
+            if (((nueva.getHoraInicio().before(actividad.getHoraInicio()) || 
+            nueva.getHoraInicio().equals(actividad.getHoraInicio())) &&
+            nueva.getHoraFin().after(actividad.getHoraInicio())) ||           
+            (nueva.getHoraInicio().before(actividad.getHoraInicio()) && 
+            nueva.getHoraInicio().after(actividad.getHoraInicio()))){
+                busy = false;
+            }
         }
+        if (busy == true){
+            this.itinerario.add(nueva);
+            return true;
+        }
+        return false;
    }
    
    /**
