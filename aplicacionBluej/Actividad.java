@@ -15,7 +15,7 @@ public class Actividad
     private String descripcion;
     private int diaInicio;   //manejamos los dias como enteros 1-primer dia, 2-segundo dia ...
     private int diaFin;      //...  ////////////TODO : modificar tipo de fecha, usar DATE
-    private int duracion;
+    private int duracion;    // Se usa para validar que la actividad no se haga fuera de la fecha del viaje
     private Time horaInicio;  // esta hora debe cumplir el formato de hora militar,ej: 1630 son las 4:30 por ejemplo  
     private Time horaFin;     //...  
     private Estado estado;
@@ -134,7 +134,7 @@ public class Actividad
     }   
     
     /**
-     * metodo que modifica el nombre de la actividad
+     * metodo que modifica la descripcion de la actividad
      * 
      * @param  nuevaDescripcion   
      * @return     boolean para confirmar el cambio 

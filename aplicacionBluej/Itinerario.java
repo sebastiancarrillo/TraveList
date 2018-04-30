@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.ListIterator;
 /**
  * Itinerario es una lista de actividadas programadas para 
  * el viaje, se podran modificar o agremas mas actividades
@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 public class Itinerario
 {
-    // instance variables - replace the example below with your own
     private ArrayList<Actividad> itinerario;
 
     /**
@@ -28,7 +27,7 @@ public class Itinerario
      * generar el itinerario del viaje
      * ojooo solo se debe generar una vez,toma los datos 
      * del viaje y genera una itinerario apropiado
-     * si ya existesolo debe poderse agregar 
+     * si ya existe solo debe poderse agregar 
      * 
      * @return arreglo con el itinerario basico 
      */
@@ -40,17 +39,20 @@ public class Itinerario
 
     /**
      * agrega una actividad a la lista de actividades
-     * ojooo!!!reviza que no haya nada programado en ese intervalo
+     * ojooo!!!revisa que no haya nada programado en ese intervalo
      * en ese intervalo de tiempo
      * 
      * @param  nueva activida a agregar
-     * @return    true si seagrego exitosamente, false si no
+     * @return    true si se agrego exitosamente, false si no
      */
-    public boolean agregaActividad( Actividad nueva )
+    public void agregaActividad( Actividad nueva )
     {
-        // put your code here
-        return false;
- 
+        ListIterator<Actividad> it = itinerario.listIterator();
+        Actividad actividad;
+        while(it.hasNext()){
+            actividad = it.next();
+            //Como obtengo el tiempo de este objeto Time ver LocalTime
+        }
    }
    
    /**
@@ -58,29 +60,30 @@ public class Itinerario
      * 
 
      * @param  activiad a eliminar
-     * @return    true si se elimino exitosamente, false si no
      */
-    public boolean eliminaActividad( Actividad actividad )
+    public void eliminaActividad( Actividad actividad )
     {
-        // put your code here
-        
-        /////////TODO: escoger mejor metodo de eliminar una actividad
-     ////////////indice o actividad
-        return false;
+        itinerario.remove(actividad);
     }
-    
-    
+       
     /**
-     * encontrar actividad segun indice
+     * encontrar actividad segun nombre
      * 
      * @param  index int de la actividad
      * @return    actividad encontrada o null
      */
-    public Actividad buscarActividadPorIndex( String nombre )
+    public ArrayList<Actividad> buscarActividadPorNombre( String nombre )
     {
-        
-        return new Actividad();
+        ArrayList<Actividad> consulta = new ArrayList();
+        ListIterator<Actividad> it = itinerario.listIterator();
+        Actividad actividad;
+        nombre = nombre.trim().toUpperCase();
+        while(it.hasNext()){
+            actividad = it.next();
+            if (it.next().getNombre().contains(nombre)){
+                consulta.add(actividad);
+            }
+        }
+        return consulta;  
     }
-    
-    
 }
