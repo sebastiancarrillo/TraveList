@@ -1,4 +1,6 @@
 import java.sql.Time;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 /**
  * Actividad modelas las actividades
  * a realizar en el itinerario
@@ -13,6 +15,7 @@ public class Actividad
     private String descripcion;
     private int diaInicio;   //manejamos los dias como enteros 1-primer dia, 2-segundo dia ...
     private int diaFin;      //...  ////////////TODO : modificar tipo de fecha, usar DATE
+    private int duracion;
     private Time horaInicio;  // esta hora debe cumplir el formato de hora militar,ej: 1630 son las 4:30 por ejemplo  
     private Time horaFin;     //...  
     private Estado estado;
@@ -21,10 +24,21 @@ public class Actividad
      * Constructor for objects of class Actividad
      * almacenar nombres con un estandar todo minuscula, quitar espacios inicio final
       */
-    public Actividad()
+    public Actividad(String nombre, String descripcion, int diaInicio, int diaFin,
+                       int duracion, Time horaInicio, Time horaFin, Estado estado)    
     {
-        // initialise instance variables
-        
+        if (!validaNombre(nombre))
+        {         
+            throw new RuntimeException("nombre invalido, no pude tener numeros");
+        }
+        this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+        this.descripcion = descripcion;
+        this.diaInicio = diaInicio;
+        this.diaFin = diaFin;
+        this.duracion = duracion;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.estado = estado;
     }
 
     /**
@@ -34,7 +48,6 @@ public class Actividad
      */
     public String getNombre()
     {
-        // put your code here
         return nombre;
     }
     
@@ -45,7 +58,6 @@ public class Actividad
      */
     public String getDescripcion()
     {
-        // put your code here
         return descripcion;
     }
     
@@ -57,7 +69,6 @@ public class Actividad
      */
     public int getDiaInicio()
     {
-        // put your code here
         return diaInicio;
     }
     
@@ -69,7 +80,6 @@ public class Actividad
      */
     public int getDiaFin()
     {
-        // put your code here
         return diaFin;
     }
     
@@ -80,7 +90,6 @@ public class Actividad
      */
     public Time getHoraInicio()
     {
-        // put your code here
         return horaInicio;
     }
     
@@ -91,7 +100,6 @@ public class Actividad
      */
     public Time getHoraFin()
     {
-        // put your code here
         return horaFin;
     }
     
@@ -102,7 +110,6 @@ public class Actividad
      */
     public Estado getEstado()
     {
-        // put your code here
         return estado;
     }
     
@@ -115,9 +122,16 @@ public class Actividad
      */
     public boolean setNombre( String nuevoNombre )
     {
-        // put your code here
-        return false;
-    }
+        if(validaNombre(nombre))
+        {
+            this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }   
     
     /**
      * metodo que modifica el nombre de la actividad
@@ -127,8 +141,13 @@ public class Actividad
      */
     public boolean setDescripcion( String nuevaDescripcion )
     {
-        // put your code here
-        return false;
+        if (nuevaDescripcion != "" && nuevaDescripcion.length() <= 50){
+            this.descripcion = nuevaDescripcion;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     /**
@@ -138,10 +157,15 @@ public class Actividad
      * @param  nuevaFechaInicio
      * @return  boolean para confirmar el cambio
      */
-    public boolean setFechaInicio( int nuevaFechaIn )
-    {
-        // put your code here
-        return false;
+    public boolean setDiaInicio( int nuevoDiaIn )
+    {   
+        if (nuevoDiaIn <= this.diaFin && nuevoDiaIn <= this.duracion){
+            this.diaInicio = nuevoDiaIn;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     /**
@@ -151,10 +175,15 @@ public class Actividad
      * @param  nuevaFechaFin
      * @return  boolean para confirmar el cambio
      */
-    public boolean setFechaFin( int nuevaFechaFin )
+    public boolean setDiaFin( int nuevoDiaFin )
     {
-        // put your code here
-        return false;
+        if (nuevoDiaFin >= this.diaInicio && nuevoDiaFin <= this.duracion){
+            this.diaFin = nuevoDiaFin;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     /**
@@ -163,10 +192,9 @@ public class Actividad
      * @param  nuevaHoraInicio
      * @return  boolean para confirmar el cambio
      */
-    public boolean setHoraInicio( Time nuevaHoraIn )
+    public void setHoraInicio( Time nuevaHoraIn )
     {
-        // put your code here
-        return false;
+        this.horaInicio = nuevaHoraIn;
     }
     
     /**
@@ -176,10 +204,9 @@ public class Actividad
      * @param  nuevaHoraFin
      * @return  boolean para confirmar el cambio
      */
-    public boolean setHoraFin( Time nuevaHoraFin )
+    public void setHoraFin( Time nuevaHoraFin )
     {
-        // put your code here
-        return false;
+        this.horaFin = nuevaHoraFin;
     }
     
     /**
@@ -187,9 +214,29 @@ public class Actividad
      *
      * @return  boolean de confirmacion 
      */
-    public boolean setEstado( Estado est)
+    public void setEstado( Estado est)
     {
-        // put your code here
+        this.estado = est;
+    }
+    /**
+     * metodo para validar el nombre de la actividad
+     * 
+     * solo se permiten nombres sin numeros  
+     * 
+     */
+    public  boolean validaNombre(String nombre)
+    {
+        //nombre.replaceAll("\\s","").trim().toUpperCase();
+        if(!nombre.equals("") && nombre.length() <= 20 )
+        {
+            nombre=nombre.replaceAll("\\s","").trim();//quita saltos de linea y espacios
+            Pattern patron = Pattern.compile("[^A-Za-z ]");
+            Matcher encaja = patron.matcher(nombre);
+            if( !encaja.find() )// que sean solo letras
+            {
+                return true;
+            }
+        }
         return false;
     }
 }
