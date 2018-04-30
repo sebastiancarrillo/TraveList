@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.target=Itinerario
 comment0.text=\n\ Itinerario\ es\ una\ lista\ de\ actividadas\ programadas\ para\ \n\ el\ viaje,\ se\ podran\ modificar\ o\ agremas\ mas\ actividades\n\ \n\ @author\ Sebastian\ Carrillo\ -\ Jhon\ Melendez\ \n\ @version\ v1\n
-comment1.params=listaBasica
-comment1.target=Itinerario(java.util.ArrayList)
+comment1.params=duracion
+comment1.target=Itinerario(int)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Itinerario\n\ toma\ la\ lista\ basica\ que\ contiene\ nombres\ y\ crea\ el\ itinerario\ asico\n\ lista\ basica\ podria\ ser\ null\n\ \ \ \ \ \n
-comment2.params=itinerario
-comment2.target=java.util.ArrayList\ generarItinerario(java.util.ArrayList)
+comment2.params=
+comment2.target=void\ seleccionarItinerarioBase()
 comment2.text=\n\ generar\ el\ itinerario\ del\ viaje\n\ ojooo\ solo\ se\ debe\ generar\ una\ vez,toma\ los\ datos\ \n\ del\ viaje\ y\ genera\ una\ itinerario\ apropiado\n\ si\ ya\ existe\ solo\ debe\ poderse\ agregar\ \n\ \n\ @return\ arreglo\ con\ el\ itinerario\ basico\ \n
 comment3.params=nueva
 comment3.target=boolean\ agregaActividad(Actividad)

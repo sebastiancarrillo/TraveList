@@ -27,7 +27,7 @@ public class Viaje
     public Viaje(Date fechaIni, int dias, int noches, Clima clima, boolean balneario,int genero)
     {
         ArrayList<String> listaBasica = generaListaActiviadesBasica();
-        itinerario = new Itinerario(listaBasica);
+        itinerario = new Itinerario(this.dias);
         listaArticulos = new ListaArticulos(dias, noches, clima, balneario, 1);//1 es un hombre 0una mujera
         
         // initialise instance variables

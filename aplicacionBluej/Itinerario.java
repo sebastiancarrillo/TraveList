@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Date;
+import java.util.Scanner;
 /**
  * Itinerario es una lista de actividadas programadas para 
  * el viaje, se podran modificar o agremas mas actividades
@@ -11,6 +12,7 @@ import java.util.Date;
 public class Itinerario
 {
     private ArrayList<Actividad> itinerario;
+    private int duracion;
 
     /**
      * Constructor for objects of class Itinerario
@@ -18,10 +20,12 @@ public class Itinerario
      * lista basica podria ser null
      
      */
-    public Itinerario( ArrayList listaBasica )//debe pedir los datos del viaje duracion baño...
+    public Itinerario( int duracion )//debe pedir los datos del viaje duracion baño...
     {
         // initialise instance variables
         itinerario = new ArrayList<Actividad>();
+        seleccionarItinerarioBase();
+        this.duracion = duracion;
     }
     
     /**
@@ -32,10 +36,23 @@ public class Itinerario
      * 
      * @return arreglo con el itinerario basico 
      */
-    public ArrayList generarItinerario( ArrayList itinerario )
+    public void seleccionarItinerarioBase()
     {
-        // initialise instance variables
-        return itinerario;
+        ArrayList<String> actividades = new ArrayList();
+        Scanner reader = new Scanner(System.in);
+        boolean answ;
+        actividades.add("Nadar");
+        actividades.add("Skiar");
+        actividades.add("Hacer Torrentismo");
+        actividades.add("Escalar");
+        actividades.add("Caminar");
+        for (String actividad:actividades){
+            System.out.println("Usted quiere " + actividad + "? Si=True o No=False");
+            answ = reader.nextBoolean();
+            if (answ){
+                itinerario.add(new Actividad(actividad,actividad, this.duracion));
+            }
+        }
     }
 
     /**
@@ -51,14 +68,16 @@ public class Itinerario
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
         boolean busy = true;
-        while(it.hasNext()){
-            actividad = it.next();
-            if (((nueva.getHoraInicio().before(actividad.getHoraInicio()) || 
-            nueva.getHoraInicio().equals(actividad.getHoraInicio())) &&
-            nueva.getHoraFin().after(actividad.getHoraInicio())) ||           
-            (nueva.getHoraInicio().before(actividad.getHoraInicio()) && 
-            nueva.getHoraInicio().after(actividad.getHoraInicio()))){
-                busy = false;
+        if(nueva.getHoraInicio() != null){
+            while(it.hasNext()){
+                actividad = it.next();
+                if (((nueva.getHoraInicio().before(actividad.getHoraInicio()) || 
+                nueva.getHoraInicio().equals(actividad.getHoraInicio())) &&
+                nueva.getHoraFin().after(actividad.getHoraInicio())) ||           
+                (nueva.getHoraInicio().before(actividad.getHoraInicio()) && 
+                nueva.getHoraInicio().after(actividad.getHoraInicio()))){
+                    busy = false;
+                }
             }
         }
         if (busy == true){
