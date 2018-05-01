@@ -24,12 +24,14 @@ public class ListaViajes
     /**
      * agrega un viaje a la lista de viajes
      * TODO:validar la fecha y los dias
+     * @param datos del viaje
+     * @return boolean de confirmacion
 
      */
     public boolean agregarViaje(Date fechaIni, int dias, int noches, Clima clima, boolean balneario, int genero)
     {
         // put your code here
-        Viaje viaje = new Viaje( fechaIni, dias, noches, clima, balneario,1);//1 es un hombre
+        Viaje viaje = new Viaje( fechaIni, dias, noches, clima, balneario, genero);//1 es un hombre
         viajes.add(viaje);
         
         return false;
