@@ -32,6 +32,6 @@ comment8.params=fecha
 comment8.target=boolean\ setFechaInicio(java.util.Date)
 comment8.text=\n\ modificar\ fecha\ de\ inicio\n\ validar\ fecha\n
 comment9.params=dias\ noches
-comment9.target=void\ setDuracionViaje(int,\ int)
+comment9.target=boolean\ setDuracionViaje(int,\ int)
 comment9.text=\n\ modificar\ duracion\ \n\ validar\ valores\n\ \n
 numComments=12

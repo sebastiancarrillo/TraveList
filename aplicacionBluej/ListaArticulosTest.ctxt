@@ -20,4 +20,6 @@ comment7.params=
 comment7.target=void\ pruebaGenerarLista()
 comment8.params=
 comment8.target=void\ pruebaGetListaArticulos()
-numComments=9
+comment9.params=
+comment9.target=void\ CambiarListaArticulosPorModDeParametrosDelViaje()
+numComments=10

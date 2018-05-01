@@ -144,21 +144,23 @@ public class Viaje
      * validar valores
      * 
      */
-    public boolean setDuracionViaje( int dias,int noches)
+    public boolean setDuracionViaje( int dias,int noches )
     {
         // put your code here
 
         if(dias<=0 || noches<0 || Math.abs(dias-noches)>1){
             return false;
         }
-        //TODO/////////////////////////////////////////////////////////////////////////////////////
-        /*
-         * modificar itinerario y lista de articulos por modificacion de la duracion
-       */
-      boolean modLis = listaArticulos.modificarDuracion( dias, noches );
-      boolean modItin = Itinerario.modificarDuracion( dias );
-      
-      return (modLis && modItin);
+        this.dias=dias;
+        this.noches=noches;
+      boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  this.clima,  this.baño, this.genero);
+      //boolean modItin = Itinerario.modificarDuracion( dias );
+      boolean modItin =true;
+      if((modLis==true) && (modItin==true))
+      {
+          return true;
+       }
+      return false;
     }
 
     /**

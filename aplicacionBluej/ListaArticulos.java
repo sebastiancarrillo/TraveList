@@ -26,16 +26,17 @@ public class ListaArticulos
      */
     public ListaArticulos( int dias, int noches, Clima clima, boolean balneario, int genero)//debe pedir los datos del viaje duracion, baño...
     {
-        if ((dias<=0) || (noches<=0) || (genero>0) || (genero<1) || (Math.abs(dias-noches)>1))
+        if ((dias<=0) || (noches<=0) || (genero<0) || (genero>1) || (Math.abs(dias-noches)>1))
         {         
             throw new RuntimeException("datos no validos");
         }
         listaArticulos =new ArrayList<Articulo>();
+        listaBasica =new ArrayList<Articulo>();
         //generar la lista basica segun sexo del usuario y datos del viaje
         generarLista( dias, noches, clima, balneario, genero, listaArticulos);
         generarLista( dias, noches, clima, balneario, genero, listaBasica);
     }
-    
+
     /**
      * generar la lista del viaje 
      * del viaje y genera una lista apropiada
@@ -46,7 +47,11 @@ public class ListaArticulos
     protected void generarLista(int dias, int noches, Clima clima, boolean balneario, int genero, ArrayList<Articulo> lista)
     {
         // initialise instance variables
-        
+
+        if(lista==null)
+        {
+            lista=listaArticulos;
+        }
         if( genero == 0 ){ //aca se agregan cosas que solo llevan las mujeres
             agregaArticulo( "maquillaje","podria ser algo util ;)", 100 , Prioridad.ALTA ,lista);
             agregaArticulo( "kit regla","calcula tu proxima regla y si es el caso preparate", 1 , Prioridad.MEDIA,lista);
@@ -107,7 +112,7 @@ public class ListaArticulos
             default : 
             agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, escoge, necesitas mas ropa?", 7 , Prioridad.ALTA ,lista);
             agregaArticulo( "zapatos","comodos o elegantes?", 3 , Prioridad.MEDIA ,lista);
-       
+
         }
         switch ((int) noches/2) {
             case 0 :
@@ -129,7 +134,7 @@ public class ListaArticulos
             default : 
             agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 5 , Prioridad.MEDIA ,lista);
         }
-        
+
         if( (clima==Clima.MUYFRIO) || (clima ==Clima.FRIO))//TODO, no se si se compare asi dos enumb
         {
             agregaArticulo( "prendas para el frio","unas bufandas, chaqueta, gorro, algo de tu estilo. ", 1 , Prioridad.ALTA ,lista);
@@ -161,8 +166,12 @@ public class ListaArticulos
     public boolean agregaArticulo( String nombre, String descripcion, int cantidad , Prioridad prioridad ,ArrayList<Articulo> lista)
     {
         // put your code here
+        if (lista ==null)
+        {
+            lista = listaArticulos;
+        }
         try {
-            if(buscarArticuloPorNombre( nombre ) == null){  
+            if(buscarArticuloPorNombre( nombre , lista) == null){  
                 if (lista ==null)
                 {
                     lista = listaArticulos;
@@ -184,12 +193,16 @@ public class ListaArticulos
      * @param  articulo a eliminar
      * @return    true si se elimino exitosamente, false si no
      */
-    public boolean eliminaArticulo( String nombre )
+    public boolean eliminaArticulo( String nombre , ArrayList<Articulo>lista)
     {
-        Articulo articulo = buscarArticuloPorNombre( nombre );
+        if (lista ==null)
+        {
+            lista = listaArticulos;
+        }
+        Articulo articulo = buscarArticuloPorNombre( nombre , lista);
         if( articulo != null )
         {
-            listaArticulos.remove(articulo);
+            lista.remove(articulo);
             return true;
         }
         return false;
@@ -201,10 +214,14 @@ public class ListaArticulos
      * @param  nombre del articulo
      * @return    actividad encontrada o null
      */
-    public Articulo buscarArticuloPorNombre( String nombre )
+    public Articulo buscarArticuloPorNombre( String nombre ,ArrayList<Articulo> lista)
     {
 
-        Iterator <Articulo> it = listaArticulos.iterator();
+        if(lista==null)
+        {lista=listaArticulos;
+
+        }
+        Iterator <Articulo> it = lista.iterator();
         while(it.hasNext())
         {
             Articulo art = it.next();
@@ -216,33 +233,55 @@ public class ListaArticulos
         }
         return null;
     }
-    
+
     /**cuando se modifica algo en los parametros de viaje se cambia la lista basica y se actualiza en el sistema
+     * 
+     *si miran cuales objetos de la lista basica han sido eliminados de la lista real para no volverlos a agregar,
      * 
      * @param los datos del viaje
      * 
      */
-    public void regenerarLista(int dias, int noches, Clima clima, boolean balneario, int genero)
+    public boolean regenerarLista(int dias, int noches, Clima clima, boolean balneario, int genero)
     {
+        if ((dias<=0) || (noches<=0) || (genero<0) || (genero>1) || (Math.abs(dias-noches)>1))
+        {         
+            return false;
+        }
         ArrayList<Articulo> listaBasicaAnterior = new ArrayList();
         listaBasicaAnterior = (ArrayList<Articulo>) listaBasica.clone();
+        
+        //generar la nueva lista basica con los datos nuevos
+        listaBasica = new ArrayList<Articulo>(); 
         generarLista( dias, noches, clima, balneario, genero, listaBasica);
+        
+        ArrayList<Articulo> listaBasicaNueva = new ArrayList();
+        listaBasicaNueva = (ArrayList<Articulo>) listaBasica.clone();//se crea un clonpara no modificar la verdadera lista nueva por si llega a hacer mas cambio luego el usuario
         //buscamos los articulos de la ListaBasica que hayan sido borrados de la ListaArticulos
-         Iterator <Articulo> it = listaBasicaAnterior.iterator();
-        while(it.hasNext())
+        
+        Iterator <Articulo> it = listaBasicaAnterior.iterator();
+        while(it.hasNext())//recorremos la anterior lista basica mirando si borraros articulos para quitarlos de la lista que se va a agregar uego
         {
             Articulo art = it.next();
-            buscarArticuloPorNombre(art.getNombre());
-            if( art.getNombre().equals(""))
+
+            if(buscarArticuloPorNombre(art.getNombre(), null )==null)// si el resultadoes null es porque noencontroel articulo en la listaArticulos por lo tanto fue borrado de la lista asi que no lo volvemos a agregar()
             {
-                
+                listaBasicaNueva.remove( buscarArticuloPorNombre(art.getNombre(), listaBasicaNueva) );
+
             }
+            listaArticulos.remove( buscarArticuloPorNombre(art.getNombre(), null) );
         }
-        
-        generarLista( dias, noches, clima, balneario, genero, listaBasica);
+        it = listaBasicaNueva.iterator();
+        while(it.hasNext())//los articulos que quedaron el la nueva lista se agregan a la listaArticulos
+        {
+            Articulo art = it.next();
+            listaArticulos.add(art);
+        }
+        return true;
     }
- 
-    
+
+    /**
+     * codigo para poder clonar los objeto, realmente es de la clase object
+     */
     public Object clone(){
         Object obj=null;
         try{
@@ -252,5 +291,19 @@ public class ListaArticulos
         }
         return obj;
     }
-    
+
+    /**
+     * metodo para imprimir la lista actual de articulos
+     */
+    public void imprimirLista()
+    {
+        Iterator <Articulo> it = listaArticulos.iterator();
+         System.out.println("               ");
+        while(it.hasNext())//los articulos que quedaron el la nueva lista se agregan a la listaArticulos
+        {
+            Articulo art = it.next();
+            
+            System.out.println(art.getNombre());
+        }
+    }
 }
