@@ -28,7 +28,7 @@ public class Itinerario
             throw new RuntimeException("duracion invalida");
         }
         itinerario = new ArrayList<Actividad>();
-        seleccionarItinerarioBase();
+        //seleccionarItinerarioBase();
         this.duracion = duracion;
     }
     /**
@@ -123,10 +123,10 @@ public class Itinerario
         ArrayList<Actividad> consulta = new ArrayList();
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
-        nombre = nombre.trim().toUpperCase();
+        nombre = nombre.trim().toLowerCase();
         while(it.hasNext()){
             actividad = it.next();
-            if (it.next().getNombre().contains(nombre)){
+            if (actividad.getNombre().contains(nombre)){
                 consulta.add(actividad);
             }
         }
@@ -141,5 +141,19 @@ public class Itinerario
             System.out.println(" no se puede duplicar");
         }
         return obj;
+    }
+    
+    public void setDuracion(int duracion){
+        ListIterator<Actividad> it = itinerario.listIterator();
+        Actividad actividad;
+        while (it.hasNext()){
+            actividad = it.next();
+            if (actividad.getDiaInicio() > duracion || actividad.getDiaFin() > duracion){
+                eliminaActividad(actividad);
+            }
+            else{
+                actividad.setDuracion(duracion);
+            }
+        }
     }
 }

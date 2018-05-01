@@ -240,6 +240,10 @@ public class Actividad
     {
         this.estado = est;
     }
+    
+    public void setDuracion(int duracion){
+        this.duracion = duracion;
+    }
     /**
      * metodo para validar el nombre de la actividad
      * 
