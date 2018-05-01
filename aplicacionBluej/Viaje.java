@@ -151,16 +151,19 @@ public class Viaje
         if(dias<=0 || noches<0 || Math.abs(dias-noches)>1){
             return false;
         }
-        this.dias=dias;
-        this.noches=noches;
-      boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  this.clima,  this.baño, this.genero);
-      //boolean modItin = Itinerario.modificarDuracion( dias );
-      boolean modItin =true;
-      if((modLis==true) && (modItin==true))
-      {
-          return true;
-       }
-      return false;
+
+        boolean modLis = listaArticulos.regenerarLista( dias, noches,  this.clima,  this.baño, this.genero);
+        //boolean modItin = Itinerario.modificarDuracion( dias );
+        boolean modItin =true;
+        if((modLis==true) && (modItin==true))
+        {
+            this.dias=dias;
+            this.noches=noches;
+            return true;
+
+        }
+
+        return false;
     }
 
     /**
@@ -169,10 +172,15 @@ public class Viaje
      */
     public void setClima( Clima nuevoClima)
     {
-         //TODO/////////////////////////////////////////////////////////////////////////////////////
+        //TODO/////////////////////////////////////////////////////////////////////////////////////
         /*
          * modificar lista de articulos por modificacion del clima
-       */
+         * 
+         */boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  nuevoClima,  this.baño, this.genero);
+        if(modLis==true)
+        {
+            this.clima =nuevoClima;
+        }
 
     }
 
@@ -185,7 +193,11 @@ public class Viaje
         //TODO/////////////////////////////////////////////////////////////////////////////////////
         /*
          * modificar  lista de articulos por modificacion de presencia de cuerpo de agua
-       */
+         */boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  this.clima,  balneario, this.genero);
+        if(modLis==true)
+        {
+            this.baño = balneario;
+        }
 
     }
 
