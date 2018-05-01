@@ -15,7 +15,7 @@ public class Actividad
     private String descripcion;
     private int diaInicio;   //manejamos los dias como enteros 1-primer dia, 2-segundo dia ...
     private int diaFin;      //...  ////////////TODO : modificar tipo de fecha, usar DATE
-    private int duracion;
+    private int duracion;    // Se usa para validar que la actividad no se haga fuera de la fecha del viaje
     private Time horaInicio;  // esta hora debe cumplir el formato de hora militar,ej: 1630 son las 4:30 por ejemplo  
     private Time horaFin;     //...  
     private Estado estado;
@@ -25,22 +25,33 @@ public class Actividad
      * almacenar nombres con un estandar todo minuscula, quitar espacios inicio final
       */
     public Actividad(String nombre, String descripcion, int diaInicio, int diaFin,
-                       int duracion, Time horaInicio, Time horaFin, Estado estado)    
+                       int duracion, Time horaInicio, Time horaFin)    
     {
         if (!validaNombre(nombre))
         {         
             throw new RuntimeException("nombre invalido, no pude tener numeros");
         }
-        this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+        this.nombre = nombre.replaceAll("\\s","").trim().toLowerCase();
         this.descripcion = descripcion;
         this.diaInicio = diaInicio;
         this.diaFin = diaFin;
         this.duracion = duracion;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.estado = estado;
+        this.estado = Estado.ACTIVA;
     }
 
+    public Actividad(String nombre, String descripcion,int duracion)    
+    {   
+        if (!validaNombre(nombre))
+        {         
+            throw new RuntimeException("nombre invalido, no pude tener numeros");
+        }
+        this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.estado = Estado.ACTIVA;
+    }
     /**
      * metodo que devuelve el nombre de la actividad
      * 
@@ -48,7 +59,7 @@ public class Actividad
      */
     public String getNombre()
     {
-        return nombre;
+        return this.nombre;
     }
     
     /**
@@ -58,7 +69,7 @@ public class Actividad
      */
     public String getDescripcion()
     {
-        return descripcion;
+        return this.descripcion;
     }
     
     /**
@@ -69,7 +80,7 @@ public class Actividad
      */
     public int getDiaInicio()
     {
-        return diaInicio;
+        return this.diaInicio;
     }
     
      /**
@@ -80,9 +91,12 @@ public class Actividad
      */
     public int getDiaFin()
     {
-        return diaFin;
+        return this.diaFin;
     }
     
+    public int getDuracion(){
+        return this.duracion;
+    }
     /**
      * metodo que devuelve la horaInicio de la actividad
      *
@@ -90,7 +104,7 @@ public class Actividad
      */
     public Time getHoraInicio()
     {
-        return horaInicio;
+        return this.horaInicio;
     }
     
     /**
@@ -100,7 +114,7 @@ public class Actividad
      */
     public Time getHoraFin()
     {
-        return horaFin;
+        return this.horaFin;
     }
     
     /**
@@ -110,7 +124,7 @@ public class Actividad
      */
     public Estado getEstado()
     {
-        return estado;
+        return this.estado;
     }
     
     /**
@@ -122,9 +136,9 @@ public class Actividad
      */
     public boolean setNombre( String nuevoNombre )
     {
-        if(validaNombre(nombre))
+        if(validaNombre(nuevoNombre))
         {
-            this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
+            this.nombre = nombre.replaceAll("\\s","").trim().toLowerCase();
             return true;
         }
         else
@@ -134,7 +148,7 @@ public class Actividad
     }   
     
     /**
-     * metodo que modifica el nombre de la actividad
+     * metodo que modifica la descripcion de la actividad
      * 
      * @param  nuevaDescripcion   
      * @return     boolean para confirmar el cambio 
@@ -192,9 +206,13 @@ public class Actividad
      * @param  nuevaHoraInicio
      * @return  boolean para confirmar el cambio
      */
-    public void setHoraInicio( Time nuevaHoraIn )
+    public boolean setHoraInicio( Time nuevaHoraIn )
     {
-        this.horaInicio = nuevaHoraIn;
+        if (nuevaHoraIn.before(this.horaFin)){
+            this.horaInicio = nuevaHoraIn;
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -204,9 +222,13 @@ public class Actividad
      * @param  nuevaHoraFin
      * @return  boolean para confirmar el cambio
      */
-    public void setHoraFin( Time nuevaHoraFin )
+    public boolean setHoraFin( Time nuevaHoraFin )
     {
-        this.horaFin = nuevaHoraFin;
+        if (nuevaHoraFin.after(horaFin)){
+            this.horaFin = nuevaHoraFin;
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -226,8 +248,7 @@ public class Actividad
      */
     public  boolean validaNombre(String nombre)
     {
-        //nombre.replaceAll("\\s","").trim().toUpperCase();
-        if(!nombre.equals("") && nombre.length() <= 20 )
+        if(!nombre.equals("") && nombre.length() <= 30 )
         {
             nombre=nombre.replaceAll("\\s","").trim();//quita saltos de linea y espacios
             Pattern patron = Pattern.compile("[^A-Za-z ]");

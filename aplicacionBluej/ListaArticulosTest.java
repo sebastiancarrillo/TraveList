@@ -44,16 +44,16 @@ public class ListaArticulosTest
     public void pruebaAgregaArticulo()
     {
         ListaArticulos listaArt1 = new ListaArticulos(10, 9, Clima.FRIO, true, 0);
-        assertEquals(true, listaArt1.agregaArticulo("prueba", "k", 9, Prioridad.BAJA));
-        assertEquals(false, listaArt1.agregaArticulo("prueba", "k", 10, Prioridad.MEDIA));
-        assertEquals(false, listaArt1.agregaArticulo("2", "ka", 10, Prioridad.BAJA));
+        assertEquals(true, listaArt1.agregaArticulo("prueba", "k", 9, Prioridad.BAJA,null));
+        assertEquals(false, listaArt1.agregaArticulo("prueba", "k", 10, Prioridad.MEDIA,null));
+        assertEquals(false, listaArt1.agregaArticulo("2", "ka", 10, Prioridad.BAJA,null));
     }
 
     @Test
     public void pruebaEliminaArticulo()
     {
         ListaArticulos listaArt1 = new ListaArticulos(10, 9, Clima.FRIO, true, 0);
-        assertEquals(true, listaArt1.agregaArticulo("a", "j", 10, Prioridad.ALTA));
+        assertEquals(true, listaArt1.agregaArticulo("a", "j", 10, Prioridad.ALTA,null));
         assertEquals(false, listaArt1.eliminaArticulo("o"));
         assertEquals(true, listaArt1.eliminaArticulo("a"));
     }
@@ -62,7 +62,7 @@ public class ListaArticulosTest
     public void pruebaBuscaArticuloPorNombre()
     {
         ListaArticulos listaArt1 = new ListaArticulos(10, 10, Clima.FRIO, true, 0);
-        assertEquals(true, listaArt1.agregaArticulo("a", "k", 47, Prioridad.BAJA));
+        assertEquals(true, listaArt1.agregaArticulo("a", "k", 47, Prioridad.BAJA,null));
         assertEquals(null, listaArt1.buscarArticuloPorNombre("kkk"));
         Articulo prueba = listaArt1.buscarArticuloPorNombre("a");
         assertEquals(prueba, listaArt1.buscarArticuloPorNombre("a"));

@@ -1,5 +1,6 @@
 import java.util.Date;
 import java.util.ArrayList;
+import java.lang.Cloneable;
 /**
  * viaje guarda y organiza el itinerario y la lista de articulos
  * de un viaje
@@ -17,8 +18,8 @@ public class Viaje
     private int noches;//duracion
     private Clima clima;  
     private boolean baño;  // indica si hay un cuerpo de agua cercano
-    private int genero;
-   
+    private int genero; //  si es mujer, 1 si es hombre
+
     /**
      * Constructor for objects of class Viaje
      * 
@@ -26,24 +27,32 @@ public class Viaje
      */
     public Viaje(Date fechaIni, int dias, int noches, Clima clima, boolean balneario,int genero)
     {
-        ArrayList<String> listaBasica = generaListaActiviadesBasica();
-        itinerario = new Itinerario(listaBasica);
-        listaArticulos = new ListaArticulos(dias, noches, clima, balneario, 1);//1 es un hombre 0una mujera
-        
-        // initialise instance variables
+        try {//estas clases validan los parametros entonces aca no los validamos
+            listaArticulos = new ListaArticulos(dias, noches, clima, balneario, genero);//1 es un hombre 0una mujera
+            itinerario = new Itinerario(dias);
+        } catch (RuntimeException e) {
+            //System.out.println("holaaaaaaaaaaaaaaa");
+            throw new RuntimeException("parametros de fechas, duracion o genero invalidos");
+        } 
+        // la fecha es validadaen esta clase :
+        Date fechaActual = new Date();
+        if(fechaActual.getYear() <= fechaIni.getYear()){
+            if(fechaActual.getMonth() <= fechaIni.getMonth()){
+                if(fechaActual.getDay()<fechaIni.getDay()){
+                    throw new RuntimeException("fecha invalida, debe ser mayor que la actual");
+                }
+            }
+        }
+        //si llega hasta aca los parametros son validos
+        this.fechaInicio=fechaIni;
+        this.dias = dias;  
+        this.noches = noches;
+        this.clima = clima;
+        this.baño = balneario;
+        this.genero = genero;
+
     } 
-    
-    /**
-     * obtener la lista de articulos
-     * 
-     * @return     lista de articulos
-     */
-    public ArrayList generaListaActiviadesBasica()
-    {
-        // put your code here
-        return new ArrayList<String>();
-    }
-    
+
     /**
      * obtener la lista de articulos
      * 
@@ -52,9 +61,9 @@ public class Viaje
     public ListaArticulos getListaArticulos()
     {
         // put your code here
-        return listaArticulos;
+        return (ListaArticulos) listaArticulos.clone();
     }    
-    
+
     /**
      * obtener itinerario
      * 
@@ -63,9 +72,9 @@ public class Viaje
     public Itinerario getItinerario()
     {
         // put your code here
-        return itinerario;
+        return (Itinerario) itinerario.clone();
     }
-    
+
     /**
      * obtener fecha de inicio
      * 
@@ -74,9 +83,9 @@ public class Viaje
     public Date getFechaInicio()
     {
         // put your code here
-        return fechaInicio;
+        return (Date) fechaInicio.clone();
     }
-    
+
     /**
      * obtener duracion 
      * 
@@ -88,7 +97,7 @@ public class Viaje
         int [] duracion= {dias,noches};
         return duracion;
     }
-    
+
     /**
      * obtener clima 
      * 
@@ -97,10 +106,9 @@ public class Viaje
     public Clima getClima()
     {
         // put your code here
-        
         return clima;
     }
-    
+
     /**
      * obtener baño
      * 
@@ -109,49 +117,74 @@ public class Viaje
     public boolean getBaño()
     {
         // put your code here
-        
         return baño;
     }
-    
-        /**
+
+    /**
      * modificar fecha de inicio
      * validar fecha
      */
-    public void setFechaInicio(Date fecha)
+    public boolean setFechaInicio(Date fecha)
     {
         // put your code here
-
+        Date fechaActual = new Date();
+        if(fechaActual.getYear() <= fecha.getYear()){
+            if(fechaActual.getMonth() <= fecha.getMonth()){
+                if(fechaActual.getDay()<fecha.getDay()){
+                    return false;
+                }
+            }
+        }
+        fechaInicio =fecha;
+        return true;
     }
-    
+
     /**
      * modificar duracion 
      * validar valores
      * 
-      */
-    public void setDuracionViaje( int dias,int noches)
+     */
+    public boolean setDuracionViaje( int dias,int noches)
     {
         // put your code here
 
+        if(dias<=0 || noches<0 || Math.abs(dias-noches)>1){
+            return false;
+        }
+        //TODO/////////////////////////////////////////////////////////////////////////////////////
+        /*
+         * modificar itinerario y lista de articulos por modificacion de la duracion
+       */
+      boolean modLis = listaArticulos.modificarDuracion( dias, noches );
+      boolean modItin = Itinerario.modificarDuracion( dias );
+      
+      return (modLis && modItin);
     }
-    
+
     /**
      * modificar clima 
      * 
      */
     public void setClima( Clima nuevoClima)
     {
-        // put your code here
-        
+         //TODO/////////////////////////////////////////////////////////////////////////////////////
+        /*
+         * modificar lista de articulos por modificacion del clima
+       */
+
     }
-    
+
     /**
      * modificar baño
      * 
      */
     public void setBaño( boolean balneario  )
     {
-        // put your code here
-        
+        //TODO/////////////////////////////////////////////////////////////////////////////////////
+        /*
+         * modificar  lista de articulos por modificacion de presencia de cuerpo de agua
+       */
 
     }
+
 }

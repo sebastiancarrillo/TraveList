@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.lang.Math;
-import java.lang.Cloneable;
+
 /**
  * lista de articulos modela una lista con los articulos generada
  * principalmente con datos basicos a la cual l se le pueden
@@ -17,6 +17,7 @@ public class ListaArticulos
 {
     // instance variables - replace the example below with your own
     private ArrayList<Articulo> listaArticulos;
+    private ArrayList<Articulo> listaBasica;// se guarda por si la persona hace algun cambio en los daos basicos del viaje
 
     /**
      * Constructor for objects of class ListaArticulos
@@ -25,96 +26,117 @@ public class ListaArticulos
      */
     public ListaArticulos( int dias, int noches, Clima clima, boolean balneario, int genero)//debe pedir los datos del viaje duracion, baño...
     {
-        // initialise instance variables
+        if ((dias<=0) || (noches<=0) || (genero>0) || (genero<1) || (Math.abs(dias-noches)>1))
+        {         
+            throw new RuntimeException("datos no validos");
+        }
         listaArticulos =new ArrayList<Articulo>();
         //generar la lista basica segun sexo del usuario y datos del viaje
-        generarLista( dias, noches, clima, balneario, genero);
+        generarLista( dias, noches, clima, balneario, genero, listaArticulos);
+        generarLista( dias, noches, clima, balneario, genero, listaBasica);
     }
     
     /**
-     * generar la lista del viaje
-     * ojooo solo se debe generar una vez,toma los datos 
+     * generar la lista del viaje 
      * del viaje y genera una lista apropiada
      * si ya existesolo debe poderse agregar 
      * 
-     * @ param  Datefehca inicio, int cantidad de dias, int cantidad noche, numb clima, boolean confirmacion balneario
+     * @ param  Datefehca inicio, int cantidad de dias, int cantidad noche, numb clima, boolean confirmacion balnearioy lista a la quue se vana a agregar los articulos
      */
-    protected void generarLista(int dias, int noches, Clima clima, boolean balneario, int genero)
+    protected void generarLista(int dias, int noches, Clima clima, boolean balneario, int genero, ArrayList<Articulo> lista)
     {
         // initialise instance variables
+        
         if( genero == 0 ){ //aca se agregan cosas que solo llevan las mujeres
-            agregaArticulo( "maquillaje","podria ser algo util ;)", 100 , Prioridad.ALTA );
-            agregaArticulo( "kit regla","calcula tu proxima regla y si es el caso preparate", 1 , Prioridad.MEDIA);
-            agregaArticulo( "utensilios manicura","esmalte,acetona,algodones,palito", 1 , Prioridad.BAJA );
-            agregaArticulo( "crema corporal","", 1 , Prioridad.BAJA );
+            agregaArticulo( "maquillaje","podria ser algo util ;)", 100 , Prioridad.ALTA ,lista);
+            agregaArticulo( "kit regla","calcula tu proxima regla y si es el caso preparate", 1 , Prioridad.MEDIA,lista);
+            agregaArticulo( "utensilios manicura","esmalte,acetona,algodones,palito", 1 , Prioridad.BAJA ,lista);
+            agregaArticulo( "crema corporal","", 1 , Prioridad.BAJA ,lista);
             if(dias>=3)
-            {agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.MEDIA );
+            {agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.MEDIA ,lista);
             }
         }else{//lo que solo llevan los hombres
-            agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.MEDIA );
+            agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.MEDIA ,lista);
 
         }
-        agregaArticulo( "documentos","identificacion, pasaporte, tarjeta de servicio militar", 1 , Prioridad.ALTA );
-        agregaArticulo( "higiene oral","cepillo, crema, enjuague,hilo dental", 1 , Prioridad.ALTA );
-        agregaArticulo( "cargador de celu","de las cosas mas importantes :O", 1 , Prioridad.ALTA );
-        agregaArticulo( "medicamentos","si usas medicamentos a diario o algo para un dolor de cabeza sorpresa", 1 , Prioridad.ALTA );
-        agregaArticulo( "toalla","dato:las de los hoteles podrian no estar tan limpias como crees", 1 , Prioridad.ALTA );
-        agregaArticulo( "camara","el cargador!!! ", 1 , Prioridad.ALTA );
-        agregaArticulo( "dinero en efectivo","moneda del lugar destino, intenta no cambiar en los aeropuertos(costoso)", 1 , Prioridad.ALTA );
-        agregaArticulo( "tarjetas de credito","cuidado con los gastos extras innecesarios", 1 , Prioridad.ALTA );
-        agregaArticulo( "celular","", 1 , Prioridad.ALTA );
+        agregaArticulo( "documentos","identificacion, pasaporte, tarjeta de servicio militar", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "higiene oral","cepillo, crema, enjuague,hilo dental", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "cargador de celu","de las cosas mas importantes :O", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "medicamentos","si usas medicamentos a diario o algo para un dolor de cabeza sorpresa", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "toalla","dato:las de los hoteles podrian no estar tan limpias como crees", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "camara","el cargador!!! ", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "dinero en efectivo","moneda del lugar destino, intenta no cambiar en los aeropuertos(costoso)", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "tarjetas de credito","cuidado con los gastos extras innecesarios", 1 , Prioridad.ALTA ,lista);
+        agregaArticulo( "celular","", 1 , Prioridad.ALTA ,lista);
 
-        agregaArticulo( "higiene corporal","desodorante, champu, jabon, copitos de algodon", 1 , Prioridad.MEDIA );
-        agregaArticulo( "protector solar","tu piel te lo agradecera", 1 , Prioridad.MEDIA );
-        agregaArticulo( "perfume","con uno me parece suficiente", 1 , Prioridad.MEDIA );
-        agregaArticulo( "mapa o gps","no te pierdas", 1 , Prioridad.MEDIA );
-        agregaArticulo( "mochila","", 1 , Prioridad.MEDIA );
-        agregaArticulo( "repelente","que los mosquitos no te alcancen", 1 , Prioridad.MEDIA );
+        agregaArticulo( "higiene corporal","desodorante, champu, jabon, copitos de algodon", 1 , Prioridad.MEDIA ,lista);
+        agregaArticulo( "protector solar","tu piel te lo agradecera", 1 , Prioridad.MEDIA ,lista);
+        agregaArticulo( "perfume","con uno me parece suficiente", 1 , Prioridad.MEDIA ,lista);
+        agregaArticulo( "mapa o gps","no te pierdas", 1 , Prioridad.MEDIA ,lista);
+        agregaArticulo( "mochila","", 1 , Prioridad.MEDIA ,lista);
+        agregaArticulo( "repelente","que los mosquitos no te alcancen", 1 , Prioridad.MEDIA ,lista);
 
-        agregaArticulo( "paraguas","es mejor estar preparado, no?", 1 , Prioridad.BAJA );
-        agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.BAJA );
-        agregaArticulo( "pastillas para mereo","", 1 , Prioridad.BAJA );
-        agregaArticulo( "gafas de sol","podras verte cool", 1 , Prioridad.BAJA );
-        agregaArticulo( "encendedor o briket","o unos fosforos", 1 , Prioridad.BAJA );
-        agregaArticulo( "papel higienico","unos cuadritos o un rollo", 1 , Prioridad.BAJA );
-        agregaArticulo( "enretenimietno","libros, musica o revistas", 1 , Prioridad.BAJA );
+        agregaArticulo( "paraguas","es mejor estar preparado, no?", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "pastillas para mereo","", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "gafas de sol","podras verte cool", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "encendedor o briket","o unos fosforos", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "papel higienico","unos cuadritos o un rollo", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "enretenimietno","libros, musica o revistas", 1 , Prioridad.BAJA ,lista);
         switch ((int) dias/2) {
             case 0 :
-            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, necesitas mas ropa?", 1 , Prioridad.ALTA );
-            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 1 , Prioridad.MEDIA );
-            agregaArticulo( "zapatos","comodos o elegantes?", 1 , Prioridad.MEDIA );
+            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, necesitas mas ropa?", 1 , Prioridad.ALTA ,lista);
+            agregaArticulo( "zapatos","comodos o elegantes?", 1 , Prioridad.MEDIA ,lista);
             break; 
 
             case 1 :
-            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, necesitas mas ropa?", 3 , Prioridad.ALTA );
-            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 2 , Prioridad.MEDIA );
-            agregaArticulo( "zapatos","comodos o elegantes?", 1 , Prioridad.MEDIA );
+            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, necesitas mas ropa?", 3 , Prioridad.ALTA ,lista);
+            agregaArticulo( "zapatos","comodos o elegantes?", 1 , Prioridad.MEDIA ,lista);
             break; 
 
             case 2 :
-            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, necesitas mas ropa?", 5 , Prioridad.ALTA );
-            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 3 , Prioridad.MEDIA );
-            agregaArticulo( "zapatos","comodos o elegantes?", 2 , Prioridad.MEDIA );
+            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, necesitas mas ropa?", 5 , Prioridad.ALTA ,lista);
+            agregaArticulo( "zapatos","comodos o elegantes?", 2 , Prioridad.MEDIA ,lista);
             break; 
 
             case 3 :
-            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, escoge, necesitas mas ropa?", 6 , Prioridad.ALTA );
-            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 4 , Prioridad.MEDIA );
-            agregaArticulo( "zapatos","comodos o elegantes?", 2 , Prioridad.MEDIA );
+            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, escoge, necesitas mas ropa?", 6 , Prioridad.ALTA ,lista);
+            agregaArticulo( "zapatos","comodos o elegantes?", 2 , Prioridad.MEDIA ,lista);
             break; 
 
             default : 
-            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, escoge, necesitas mas ropa?", 7 , Prioridad.ALTA );
-
-            agregaArticulo( "zapatos","comodos o elegantes?", 3 , Prioridad.MEDIA );agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 5 , Prioridad.MEDIA );
+            agregaArticulo( "conjuntos de ropa","piensa en las actividades que vas a realizar, escoge, necesitas mas ropa?", 7 , Prioridad.ALTA ,lista);
+            agregaArticulo( "zapatos","comodos o elegantes?", 3 , Prioridad.MEDIA ,lista);
+       
         }
+        switch ((int) noches/2) {
+            case 0 :
+            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 1 , Prioridad.MEDIA ,lista);
+            break; 
+
+            case 1 :           
+            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 2 , Prioridad.MEDIA ,lista);
+            break; 
+
+            case 2 :
+            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 3 , Prioridad.MEDIA ,lista);
+            break; 
+
+            case 3 :
+            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 4 , Prioridad.MEDIA ,lista);
+            break; 
+
+            default : 
+            agregaArticulo( "pijama","es mejor dormir con algo puesto por si hay alguna emergencia", 5 , Prioridad.MEDIA ,lista);
+        }
+        
         if( (clima==Clima.MUYFRIO) || (clima ==Clima.FRIO))//TODO, no se si se compare asi dos enumb
         {
-            agregaArticulo( "prendas para el frio","unas bufandas, chaqueta, gorro, algo de tu estilo. ", 1 , Prioridad.ALTA );
+            agregaArticulo( "prendas para el frio","unas bufandas, chaqueta, gorro, algo de tu estilo. ", 1 , Prioridad.ALTA ,lista);
         }
         if(balneario)
         {
-            agregaArticulo( "vestidos de bano","con uno es suficiente, pero puedes llevar los que quieras", 1 , Prioridad.ALTA );
+            agregaArticulo( "vestidos de bano","con uno es suficiente, pero puedes llevar los que quieras", 1 , Prioridad.ALTA ,lista);
         }
     }
 
@@ -133,16 +155,20 @@ public class ListaArticulos
      * agrega un articulo lista de articulos
      * debe validar que el elemento no se haya agregado ya, comparar...
      * 
-     * @param  nuevo articulo a agregar
+     * @param  nuevo articulo a agregar y la listadode se va  agregar utilice null para agregar a la lista principal de articulos
      * @return    true si se agrego exitosamente, false si no
      */
-    public boolean agregaArticulo( String nombre, String descripcion, int cantidad , Prioridad prioridad )
+    public boolean agregaArticulo( String nombre, String descripcion, int cantidad , Prioridad prioridad ,ArrayList<Articulo> lista)
     {
         // put your code here
         try {
             if(buscarArticuloPorNombre( nombre ) == null){  
+                if (lista ==null)
+                {
+                    lista = listaArticulos;
+                }
                 Articulo nuevoArt = new Articulo(nombre, descripcion, cantidad, prioridad);
-                listaArticulos.add( nuevoArt );
+                lista.add( nuevoArt );
                 return true;
             }
             else{return false;}
@@ -163,6 +189,7 @@ public class ListaArticulos
         Articulo articulo = buscarArticuloPorNombre( nombre );
         if( articulo != null )
         {
+            listaArticulos.remove(articulo);
             return true;
         }
         return false;
@@ -189,4 +216,41 @@ public class ListaArticulos
         }
         return null;
     }
+    
+    /**cuando se modifica algo en los parametros de viaje se cambia la lista basica y se actualiza en el sistema
+     * 
+     * @param los datos del viaje
+     * 
+     */
+    public void regenerarLista(int dias, int noches, Clima clima, boolean balneario, int genero)
+    {
+        ArrayList<Articulo> listaBasicaAnterior = new ArrayList();
+        listaBasicaAnterior = (ArrayList<Articulo>) listaBasica.clone();
+        generarLista( dias, noches, clima, balneario, genero, listaBasica);
+        //buscamos los articulos de la ListaBasica que hayan sido borrados de la ListaArticulos
+         Iterator <Articulo> it = listaBasicaAnterior.iterator();
+        while(it.hasNext())
+        {
+            Articulo art = it.next();
+            buscarArticuloPorNombre(art.getNombre());
+            if( art.getNombre().equals(""))
+            {
+                
+            }
+        }
+        
+        generarLista( dias, noches, clima, balneario, genero, listaBasica);
+    }
+ 
+    
+    public Object clone(){
+        Object obj=null;
+        try{
+            obj=super.clone();
+        }catch(CloneNotSupportedException ex){
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
+    
 }

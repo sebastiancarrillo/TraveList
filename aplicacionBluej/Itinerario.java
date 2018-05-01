@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+import java.util.ListIterator;
+import java.util.Date;
+import java.util.Scanner;
+import java.lang.Cloneable;
 /**
  * Itinerario es una lista de actividadas programadas para 
  * el viaje, se podran modificar o agremas mas actividades
@@ -9,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Itinerario
 {
-    // instance variables - replace the example below with your own
     private ArrayList<Actividad> itinerario;
+    private int duracion;
 
     /**
      * Constructor for objects of class Itinerario
@@ -18,39 +21,84 @@ public class Itinerario
      * lista basica podria ser null
      
      */
-    public Itinerario( ArrayList listaBasica )//debe pedir los datos del viaje duracion baño...
+    public Itinerario( int duracion )//debe pedir los datos del viaje duracion baño...
     {
         // initialise instance variables
+        if(duracion <=0){
+            throw new RuntimeException("duracion invalida");
+        }
         itinerario = new ArrayList<Actividad>();
+        seleccionarItinerarioBase();
+        this.duracion = duracion;
+    }
+    /**
+     * devuelve la lista del itinerario
+     * 
+
+     * @param  activiad a eliminar
+    */    
+    public ArrayList<Actividad> getItinerario()
+    {
+        return (ArrayList<Actividad>) itinerario.clone();
     }
     
     /**
      * generar el itinerario del viaje
      * ojooo solo se debe generar una vez,toma los datos 
      * del viaje y genera una itinerario apropiado
-     * si ya existesolo debe poderse agregar 
+     * si ya existe solo debe poderse agregar 
      * 
      * @return arreglo con el itinerario basico 
      */
-    public ArrayList generarItinerario( ArrayList itinerario )
+    public void seleccionarItinerarioBase()
     {
-        // initialise instance variables
-        return itinerario;
+        ArrayList<String> actividades = new ArrayList();
+        Scanner reader = new Scanner(System.in);
+        boolean answ;
+        actividades.add("Nadar");
+        actividades.add("Skiar");
+        actividades.add("Hacer Torrentismo");
+        actividades.add("Escalar");
+        actividades.add("Caminar");
+        for (String actividad:actividades){
+            System.out.println("Usted quiere " + actividad + "? Si=True o No=False");
+            answ = reader.nextBoolean();
+            if (answ){
+                itinerario.add(new Actividad(actividad,actividad, this.duracion));
+            }
+        }
     }
 
     /**
      * agrega una actividad a la lista de actividades
-     * ojooo!!!reviza que no haya nada programado en ese intervalo
+     * ojooo!!!revisa que no haya nada programado en ese intervalo
      * en ese intervalo de tiempo
      * 
      * @param  nueva activida a agregar
-     * @return    true si seagrego exitosamente, false si no
+     * @return    true si se agrego exitosamente, false si no
      */
     public boolean agregaActividad( Actividad nueva )
     {
-        // put your code here
+        ListIterator<Actividad> it = itinerario.listIterator();
+        Actividad actividad;
+        boolean busy = true;
+        if(nueva.getHoraInicio() != null){
+            while(it.hasNext()){
+                actividad = it.next();
+                if (((nueva.getHoraInicio().before(actividad.getHoraInicio()) || 
+                nueva.getHoraInicio().equals(actividad.getHoraInicio())) &&
+                nueva.getHoraFin().after(actividad.getHoraInicio())) ||           
+                (nueva.getHoraInicio().before(actividad.getHoraInicio()) && 
+                nueva.getHoraInicio().after(actividad.getHoraInicio()))){
+                    busy = false;
+                }
+            }
+        }
+        if (busy == true){
+            this.itinerario.add(nueva);
+            return true;
+        }
         return false;
- 
    }
    
    /**
@@ -58,29 +106,40 @@ public class Itinerario
      * 
 
      * @param  activiad a eliminar
-     * @return    true si se elimino exitosamente, false si no
      */
-    public boolean eliminaActividad( Actividad actividad )
+    public void eliminaActividad( Actividad actividad )
     {
-        // put your code here
-        
-        /////////TODO: escoger mejor metodo de eliminar una actividad
-     ////////////indice o actividad
-        return false;
+        itinerario.remove(actividad);
     }
-    
-    
+       
     /**
-     * encontrar actividad segun indice
+     * encontrar actividad segun nombre
      * 
      * @param  index int de la actividad
      * @return    actividad encontrada o null
      */
-    public Actividad buscarActividadPorIndex( String nombre )
+    public ArrayList<Actividad> buscarActividadPorNombre( String nombre )
     {
-        
-        return new Actividad();
+        ArrayList<Actividad> consulta = new ArrayList();
+        ListIterator<Actividad> it = itinerario.listIterator();
+        Actividad actividad;
+        nombre = nombre.trim().toUpperCase();
+        while(it.hasNext()){
+            actividad = it.next();
+            if (it.next().getNombre().contains(nombre)){
+                consulta.add(actividad);
+            }
+        }
+        return consulta;  
     }
     
-    
+    public Object clone(){
+        Object obj=null;
+        try{
+            obj=super.clone();
+        }catch(CloneNotSupportedException ex){
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
 }
