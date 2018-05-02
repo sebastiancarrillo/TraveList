@@ -75,13 +75,6 @@ public class main
         }
     }
 
-    public static void menuEliminarViaje()
-    {
-    }
-
-    public static void menuAgregarViaje()
-    {
-    }
 
     public static void menuDetallesDelViaje()
     {
