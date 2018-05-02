@@ -83,7 +83,7 @@ public class ListaArticulos
 
         agregaArticulo( "paraguas","es mejor estar preparado, no?", 1 , Prioridad.BAJA ,lista);
         agregaArticulo( "cuchilla de afeitar","", 1 , Prioridad.BAJA ,lista);
-        agregaArticulo( "pastillas para mereo","", 1 , Prioridad.BAJA ,lista);
+        agregaArticulo( "pastillas para mareo","", 1 , Prioridad.BAJA ,lista);
         agregaArticulo( "gafas de sol","podras verte cool", 1 , Prioridad.BAJA ,lista);
         agregaArticulo( "encendedor o briket","o unos fosforos", 1 , Prioridad.BAJA ,lista);
         agregaArticulo( "papel higienico","unos cuadritos o un rollo", 1 , Prioridad.BAJA ,lista);
@@ -249,15 +249,15 @@ public class ListaArticulos
         }
         ArrayList<Articulo> listaBasicaAnterior = new ArrayList();
         listaBasicaAnterior = (ArrayList<Articulo>) listaBasica.clone();
-        
+
         //generar la nueva lista basica con los datos nuevos
         listaBasica = new ArrayList<Articulo>(); 
         generarLista( dias, noches, clima, balneario, genero, listaBasica);
-        
+
         ArrayList<Articulo> listaBasicaNueva = new ArrayList();
         listaBasicaNueva = (ArrayList<Articulo>) listaBasica.clone();//se crea un clonpara no modificar la verdadera lista nueva por si llega a hacer mas cambio luego el usuario
         //buscamos los articulos de la ListaBasica que hayan sido borrados de la ListaArticulos
-        
+
         Iterator <Articulo> it = listaBasicaAnterior.iterator();
         while(it.hasNext())//recorremos la anterior lista basica mirando si borraros articulos para quitarlos de la lista que se va a agregar uego
         {
@@ -293,16 +293,40 @@ public class ListaArticulos
     }
 
     /**
+     * metodo para buscar coincidencias de una buqueda tanto en nombres como en decripcion
+     */
+    public ArrayList<Articulo> buscaCoincidencias(String busqueda)
+    {
+        ArrayList<Articulo> coincidencias = new ArrayList();
+        Iterator <Articulo> it = listaArticulos.iterator();
+        String[] busquedas = busqueda.split(" ");
+        System.out.println("               ");
+        while(it.hasNext())//los articulos que quedaron el la nueva lista se agregan a la listaArticulos
+        {
+            Articulo art = it.next();
+            for (int i = 0; i < busquedas.length; i++){
+                if( (art.getNombre().contains(busquedas[i].toUpperCase())) || (art.getDescripcion().contains(busquedas[i])) )
+                {
+                    coincidencias.add(art);
+                    
+                }
+            }
+            
+        }
+        return coincidencias;
+    }
+
+    /**
      * metodo para imprimir la lista actual de articulos
      */
     public void imprimirLista()
     {
         Iterator <Articulo> it = listaArticulos.iterator();
-         System.out.println("               ");
+        System.out.println("               ");
         while(it.hasNext())//los articulos que quedaron el la nueva lista se agregan a la listaArticulos
         {
             Articulo art = it.next();
-            
+
             System.out.println(art.getNombre());
         }
     }

@@ -11,9 +11,10 @@ import java.lang.Cloneable;
 public class Viaje
 {
     // instance variables - replace the example below with your own
+    private String nombre;
     private ListaArticulos listaArticulos;
     private Itinerario itinerario;
-    private Date fechaInicio;
+    private Date fechaInicio;  // cuidado enero es el mes 0 diciembre el mes 11 y el año esta adelantado en 1
     private int dias;//duracion 
     private int noches;//duracion
     private Clima clima;  
@@ -25,9 +26,13 @@ public class Viaje
      * 
 
      */
-    public Viaje(Date fechaIni, int dias, int noches, Clima clima, boolean balneario,int genero)
+    public Viaje(int añoIni,int mesIni, int diaIni , int dias, int noches, Clima clima, boolean balneario,int genero,String nombreViaje)
     {
         try {//estas clases validan los parametros entonces aca no los validamos
+            if(nombreViaje.length() >= 30)
+            {
+                throw new RuntimeException("nombre muy largo");
+            }
             listaArticulos = new ListaArticulos(dias, noches, clima, balneario, genero);//1 es un hombre 0una mujera
             itinerario = new Itinerario(dias);
         } catch (RuntimeException e) {
@@ -35,10 +40,12 @@ public class Viaje
             throw new RuntimeException("parametros de fechas, duracion o genero invalidos");
         } 
         // la fecha es validadaen esta clase :
+        Date fechaIni = new Date(añoIni,mesIni,diaIni);
+
         Date fechaActual = new Date();
         if(fechaActual.getYear() <= fechaIni.getYear()){
             if(fechaActual.getMonth() <= fechaIni.getMonth()){
-                if(fechaActual.getDay()<fechaIni.getDay()){
+                if(fechaActual.getDate()<fechaIni.getDate()){
                     throw new RuntimeException("fecha invalida, debe ser mayor que la actual");
                 }
             }
@@ -50,7 +57,7 @@ public class Viaje
         this.clima = clima;
         this.baño = balneario;
         this.genero = genero;
-
+        this.nombre = nombreViaje.toUpperCase().replaceAll("\\s","").trim();
     } 
 
     /**
@@ -61,7 +68,7 @@ public class Viaje
     public ListaArticulos getListaArticulos()
     {
         // put your code here
-        return (ListaArticulos) listaArticulos.clone();
+        return listaArticulos;
     }    
 
     /**
@@ -72,7 +79,18 @@ public class Viaje
     public Itinerario getItinerario()
     {
         // put your code here
-        return (Itinerario) itinerario.clone();
+        return itinerario;
+    }
+    
+    /**
+     * obtain the travels name
+     * 
+     * @return     itinerario
+     */
+    public String getNombre()
+    {
+        // put your code here
+        return nombre;
     }
 
     /**
@@ -83,6 +101,7 @@ public class Viaje
     public Date getFechaInicio()
     {
         // put your code here
+
         return (Date) fechaInicio.clone();
     }
 
@@ -130,7 +149,7 @@ public class Viaje
         Date fechaActual = new Date();
         if(fechaActual.getYear() <= fecha.getYear()){
             if(fechaActual.getMonth() <= fecha.getMonth()){
-                if(fechaActual.getDay()<fecha.getDay()){
+                if(fechaActual.getDate()<fecha.getDate()){
                     return false;
                 }
             }
@@ -154,8 +173,8 @@ public class Viaje
 
         boolean modLis = listaArticulos.regenerarLista( dias, noches,  this.clima,  this.baño, this.genero);
         //boolean modItin = Itinerario.modificarDuracion( dias );
-        boolean modItin =true;
-        if((modLis==true) && (modItin==true))
+        itinerario.setDuracion(dias);
+        if(modLis==true)
         {
             this.dias=dias;
             this.noches=noches;
@@ -172,11 +191,7 @@ public class Viaje
      */
     public void setClima( Clima nuevoClima)
     {
-        //TODO/////////////////////////////////////////////////////////////////////////////////////
-        /*
-         * modificar lista de articulos por modificacion del clima
-         * 
-         */boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  nuevoClima,  this.baño, this.genero);
+        boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  nuevoClima,  this.baño, this.genero);
         if(modLis==true)
         {
             this.clima =nuevoClima;
@@ -190,10 +205,7 @@ public class Viaje
      */
     public void setBaño( boolean balneario  )
     {
-        //TODO/////////////////////////////////////////////////////////////////////////////////////
-        /*
-         * modificar  lista de articulos por modificacion de presencia de cuerpo de agua
-         */boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  this.clima,  balneario, this.genero);
+        boolean modLis = listaArticulos.regenerarLista( this.dias, this.noches,  this.clima,  balneario, this.genero);
         if(modLis==true)
         {
             this.baño = balneario;

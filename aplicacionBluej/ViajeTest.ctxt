@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=ViajeTest
+comment0.text=\n\ The\ test\ class\ ViajeTest.\n\n\ @author\ \ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=ViajeTest()
+comment1.text=\n\ Default\ constructor\ for\ test\ class\ ViajeTest\n
+comment2.params=
+comment2.target=void\ setUp()
+comment2.text=\n\ Sets\ up\ the\ test\ fixture.\n\n\ Called\ before\ every\ test\ case\ method.\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\n\ Tears\ down\ the\ test\ fixture.\n\n\ Called\ after\ every\ test\ case\ method.\n
+comment4.params=
+comment4.target=void\ pruebaMetodosGet()
+comment5.params=
+comment5.target=void\ pruebaSetHoraInicio()
+comment6.params=
+comment6.target=void\ probarSetDuracion()
+comment7.params=
+comment7.target=void\ probarSetClima()
+comment8.params=
+comment8.target=void\ probarSetBa\u00F1o()
+numComments=9

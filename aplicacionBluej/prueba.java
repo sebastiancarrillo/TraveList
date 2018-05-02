@@ -1,5 +1,6 @@
 import java.sql.Time;
 import java.util.Date;
+import java.util.GregorianCalendar;
 /**
  * Write a description of class prueba here.
  * 
@@ -31,19 +32,24 @@ public class prueba
     public static void sampleMethod()
     {
         // put your code here
-        Date origin = new Date();
-        Date fecha = new Date();
-        fecha.setYear(2017);
-        
-        Time tiempo = new Time(18,0,0);
+        //Date origin = new Date();
+        Date fecha = new Date(2018,12,15);
+        System.out.println(fecha.getYear());
+        System.out.println(fecha.getMonth());
+        System.out.println(fecha.getDate());
+
+        Time tiempo = new Time(2018,12,1);
         try {
-           // Articulo art = new Articulo("hola2");
+            // Articulo art = new Articulo("hola2");
         } catch (RuntimeException e) {
             //System.out.println("holaaaaaaaaaaaaaaa");
             //
         }
-        System.out.print("holaaa");
-
-
+System.out.println("");
+        GregorianCalendar origin = new GregorianCalendar(2018 , 12, 20);
+        System.out.println(origin.DAY_OF_MONTH);
+        System.out.println(origin.MONTH);
+        System.out.println(origin.YEAR);
+  
     }
 }

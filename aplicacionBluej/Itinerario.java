@@ -133,16 +133,6 @@ public class Itinerario
         return consulta;  
     }
     
-    public Object clone(){
-        Object obj=null;
-        try{
-            obj=super.clone();
-        }catch(CloneNotSupportedException ex){
-            System.out.println(" no se puede duplicar");
-        }
-        return obj;
-    }
-    
     public void setDuracion(int duracion){
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
