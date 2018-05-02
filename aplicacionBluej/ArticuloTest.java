@@ -80,9 +80,9 @@ public class ArticuloTest
         assertEquals(true, articulo1.validaNombre("juan"));
         assertEquals(false, articulo1.validaNombre("2j"));
         assertEquals(false, articulo1.validaNombre("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"));
-        assertEquals(true, articulo1.validaNombre("aaaaaaaaaaaaaaaaaaa"));
-        assertEquals(true, articulo1.validaNombre("aaaaaaaaaaaaaaaaaaaa"));
-        assertEquals(false, articulo1.validaNombre("aaaaaaaaaaaaaaaaaaaaa"));
+        assertEquals(true, articulo1.validaNombre("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+        assertEquals(true, articulo1.validaNombre("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+        assertEquals(false, articulo1.validaNombre("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
         assertEquals(true, articulo1.validaNombre("jshf"));
         assertEquals(false, articulo1.validaNombre(""));
     }

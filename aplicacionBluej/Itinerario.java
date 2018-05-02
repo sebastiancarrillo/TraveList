@@ -123,7 +123,7 @@ public class Itinerario
         ArrayList<Actividad> consulta = new ArrayList();
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
-        nombre = nombre.trim().toLowerCase();
+        nombre = nombre.trim().toUpperCase();
         while(it.hasNext()){
             actividad = it.next();
             if (actividad.getNombre().contains(nombre)){

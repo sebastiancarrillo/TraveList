@@ -44,7 +44,7 @@ public class ActividadTest
     
     @Test
     public void pruebaMetodosGet(){  
-        assertEquals("rumbear", prueba.getNombre());
+        assertEquals("RUMBEAR", prueba.getNombre());
         assertEquals("Salir a tomar y bailar con unos amigos", prueba.getDescripcion());
         assertEquals(4, prueba.getDiaInicio());
         assertEquals(4, prueba.getDiaFin());

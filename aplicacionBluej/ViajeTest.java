@@ -77,6 +77,14 @@ public class ViajeTest
         viaje1.setBaño(false);
         assertEquals(false, viaje1.getBaño());
     }
+    
+    @Test
+    public void probarSetFecha()
+    {
+        Date fecha = new Date();
+        viaje1.setFechaInicio(fecha);
+        assertEquals(fecha, viaje1.getFechaInicio());
+    }
 }
 
 

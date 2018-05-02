@@ -50,9 +50,21 @@ public class ListaViajesTest
     }
 
     @Test
-    public void probarBuscar()
+    public void probarEliminar()
     {
+        Viaje vi = lista.buscarViajeNombre("ELMEJOR");
+        assertEquals(true,lista.eliminarViaje(vi));
+        vi = lista.buscarViajeNombre("ELMEJOd");
+        assertEquals(false,lista.eliminarViaje(vi));
     }
+        @Test
+    public void probarbuscar()
+    {
+        Viaje vi = lista.buscarViajeNombre("ELMEJOR");
+        assertEquals(vi,lista.buscarViajeNombre("ELMEJOR"));
+        assertEquals(null,lista.buscarViajeNombre("zsvasv"));
+    }
+    
 }
 
 

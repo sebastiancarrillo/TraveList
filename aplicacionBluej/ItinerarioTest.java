@@ -41,34 +41,36 @@ public class ItinerarioTest
     public void tearDown()
     {
     }
+
     @Test
     public void puebaAgregaActividad(){
         assertEquals(true, prueba.agregaActividad(new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",
-                                        4, 4, 10, new Time(18,0,0), new Time(18,0,0))));
+                    4, 4, 10, new Time(18,0,0), new Time(18,0,0))));
         assertEquals(true, prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",
-                                        4, 4, 10, new Time(16,0,0), new Time(18,0,0))));
+                    4, 4, 10, new Time(16,0,0), new Time(18,0,0))));
         assertEquals(false, prueba.agregaActividad(new Actividad("Nadar","Nadar en la playa",
-                                        4, 4, 10, new Time(17,0,0), new Time(19,0,0))));                                
+                    4, 4, 10, new Time(17,0,0), new Time(19,0,0))));                                
     }
+
     @Test
-    public void pruebaBuscarActividadPorNombre(){
+    public void pruebaBuscarActividadPorNombre()
+    {
         ArrayList<Actividad> lista = new ArrayList();      
-        Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",
-                                        4, 4, 10, new Time(18,0,0), new Time(18,0,0));
+        Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",4, 4, 10, new Time(18,0,0), new Time(18,0,0));
         lista.add(actividad);
         prueba.agregaActividad(actividad);
-        prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",
-                                        4, 4, 10, new Time(16,0,0), new Time(18,0,0)));
+        prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",4, 4, 10, new Time(16,0,0), new Time(18,0,0)));
         assertEquals(lista,prueba.buscarActividadPorNombre("Rumbear"));
     }
+
     @Test
     public void pruebaSetDuracion(){
         ArrayList<Actividad> lista = new ArrayList();       
         Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",
-                                        9, 9, 10, new Time(18,0,0), new Time(18,0,0));
+                9, 9, 10, new Time(18,0,0), new Time(18,0,0));
         prueba.agregaActividad(actividad);
         prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",
-                                        4, 4, 10, new Time(16,0,0), new Time(18,0,0)));
+                4, 4, 10, new Time(16,0,0), new Time(18,0,0)));
         prueba.setDuracion(8);
         assertEquals(lista,prueba.buscarActividadPorNombre("Rumbear"));
     }

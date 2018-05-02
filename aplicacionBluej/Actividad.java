@@ -1,18 +1,14 @@
 import java.sql.Time;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 /**
  * Actividad modelas las actividades
  * a realizar en el itinerario
  * 
- @author Sebastian Carrillo - Jhon Melendez 
+@author Sebastian Carrillo - Jhon Melendez 
  * @version v1
  */
-public class Actividad
+public class Actividad extends Item
 {
     // instance variables - replace the example below with your own
-    private String nombre;
-    private String descripcion;
     private int diaInicio;   //manejamos los dias como enteros 1-primer dia, 2-segundo dia ...
     private int diaFin;      //...  ////////////TODO : modificar tipo de fecha, usar DATE
     private int duracion;    // Se usa para validar que la actividad no se haga fuera de la fecha del viaje
@@ -23,16 +19,11 @@ public class Actividad
     /**
      * Constructor for objects of class Actividad
      * almacenar nombres con un estandar todo minuscula, quitar espacios inicio final
-      */
+     */
     public Actividad(String nombre, String descripcion, int diaInicio, int diaFin,
-                       int duracion, Time horaInicio, Time horaFin)    
+    int duracion, Time horaInicio, Time horaFin)    
     {
-        if (!validaNombre(nombre))
-        {         
-            throw new RuntimeException("nombre invalido, no pude tener numeros");
-        }
-        this.nombre = nombre.replaceAll("\\s","").trim().toLowerCase();
-        this.descripcion = descripcion;
+        super(nombre, descripcion);
         this.diaInicio = diaInicio;
         this.diaFin = diaFin;
         this.duracion = duracion;
@@ -43,35 +34,11 @@ public class Actividad
 
     public Actividad(String nombre, String descripcion,int duracion)    
     {   
-        if (!validaNombre(nombre))
-        {         
-            throw new RuntimeException("nombre invalido, no pude tener numeros");
-        }
-        this.nombre = nombre.replaceAll("\\s","").trim().toUpperCase();
-        this.descripcion = descripcion;
+        super(nombre, descripcion);
         this.duracion = duracion;
         this.estado = Estado.ACTIVA;
     }
-    /**
-     * metodo que devuelve el nombre de la actividad
-     * 
-     * @return     nombre: String con el nombre de la actividad 
-     */
-    public String getNombre()
-    {
-        return this.nombre;
-    }
-    
-    /**
-     * metodo que devuelve la descripcion de la actividad
-     *
-     * @return  String con la descripcion de la actividad
-     */
-    public String getDescripcion()
-    {
-        return this.descripcion;
-    }
-    
+
     /**
      * metodo que devuelve la fecha de inicio
      * de la actividad
@@ -82,8 +49,8 @@ public class Actividad
     {
         return this.diaInicio;
     }
-    
-     /**
+
+    /**
      * metodo que devuelve la fecha de finalizacion
      * de la actividad
      *
@@ -93,10 +60,11 @@ public class Actividad
     {
         return this.diaFin;
     }
-    
+
     public int getDuracion(){
         return this.duracion;
     }
+
     /**
      * metodo que devuelve la horaInicio de la actividad
      *
@@ -106,7 +74,7 @@ public class Actividad
     {
         return this.horaInicio;
     }
-    
+
     /**
      * metodo que devuelve la horaFin de la actividad
      *
@@ -116,7 +84,7 @@ public class Actividad
     {
         return this.horaFin;
     }
-    
+
     /**
      * metodo que devuelve el estado de la actividad
      *
@@ -126,44 +94,7 @@ public class Actividad
     {
         return this.estado;
     }
-    
-    /**
-     * metodo que modifica el nombre de la actividad
-     *  pasar el nombre al estandar antes de guardar
-     * 
-     * @param  nuevoNombre   
-     * @return     boolean , para confirmar el exito del cambio 
-     */
-    public boolean setNombre( String nuevoNombre )
-    {
-        if(validaNombre(nuevoNombre))
-        {
-            this.nombre = nombre.replaceAll("\\s","").trim().toLowerCase();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }   
-    
-    /**
-     * metodo que modifica la descripcion de la actividad
-     * 
-     * @param  nuevaDescripcion   
-     * @return     boolean para confirmar el cambio 
-     */
-    public boolean setDescripcion( String nuevaDescripcion )
-    {
-        if (nuevaDescripcion != "" && nuevaDescripcion.length() <= 50){
-            this.descripcion = nuevaDescripcion;
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    
+
     /**
      * metodo que modifica la fechaInicio de la actividad
      * ojo, validar la fecha antes menor a la duracion
@@ -181,7 +112,7 @@ public class Actividad
             return false;
         }
     }
-    
+
     /**
      * metodo que modifica la fechaFin de la actividad
      * ojo, validar la fecha antes menor a la duracion.
@@ -199,7 +130,7 @@ public class Actividad
             return false;
         }
     }
-    
+
     /**
      * metodo que modifica la horaInicio de la actividad
      * ojo, validar la hora antes, menor a 2400, mayor a 0
@@ -214,7 +145,7 @@ public class Actividad
         }
         return false;
     }
-    
+
     /**
      * metodo que modifica la horaFin de la actividad
      * ojo, validar la hora antes, menor a 2400, mayor a 0
@@ -230,7 +161,7 @@ public class Actividad
         }
         return false;
     }
-    
+
     /**
      * metodo que cambia el estado de la actividad
      *
@@ -240,28 +171,9 @@ public class Actividad
     {
         this.estado = est;
     }
-    
+
     public void setDuracion(int duracion){
         this.duracion = duracion;
     }
-    /**
-     * metodo para validar el nombre de la actividad
-     * 
-     * solo se permiten nombres sin numeros  
-     * 
-     */
-    public  boolean validaNombre(String nombre)
-    {
-        if(!nombre.equals("") && nombre.length() <= 30 )
-        {
-            nombre=nombre.replaceAll("\\s","").trim();//quita saltos de linea y espacios
-            Pattern patron = Pattern.compile("[^A-Za-z ]");
-            Matcher encaja = patron.matcher(nombre);
-            if( !encaja.find() )// que sean solo letras
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
