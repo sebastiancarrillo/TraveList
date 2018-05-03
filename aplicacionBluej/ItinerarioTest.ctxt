@@ -15,5 +15,5 @@ comment4.target=void\ puebaAgregaActividad()
 comment5.params=
 comment5.target=void\ pruebaBuscarActividadPorNombre()
 comment6.params=
-comment6.target=void\ pruebaSetDuracion()
+comment6.target=void\ pruebaSetFechaViaje()
 numComments=7

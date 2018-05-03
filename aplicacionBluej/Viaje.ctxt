@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Viaje
 comment0.text=\n\ viaje\ guarda\ y\ organiza\ el\ itinerario\ y\ la\ lista\ de\ articulos\n\ de\ un\ viaje\n\ \n\ @author\ Sebastian\ Carrillo\ -\ Jhon\ Melendez\ \n\ @version\ v1\n
-comment1.params=a\u00F1oIni\ mesIni\ diaIni\ dias\ noches\ clima\ balneario\ genero\ nombreViaje
-comment1.target=Viaje(int,\ int,\ int,\ int,\ int,\ Clima,\ boolean,\ int,\ java.lang.String)
+comment1.params=a\u00F1oInicio\ a\u00F1oFin\ mesInicio\ mesFin\ diaInicio\ diaFin\ horaInicio\ horaFin\ minutoInicio\ minutoFin\ dias\ noches\ clima\ balneario\ genero\ nombreViaje
+comment1.target=Viaje(int,\ int,\ int,\ int,\ int,\ int,\ int,\ int,\ int,\ int,\ int,\ int,\ Clima,\ boolean,\ int,\ java.lang.String)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Viaje\n\ \n\n
 comment10.params=dias\ noches
 comment10.target=boolean\ setDuracionViaje(int,\ int)

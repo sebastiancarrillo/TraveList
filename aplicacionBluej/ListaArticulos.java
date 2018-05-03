@@ -326,8 +326,7 @@ public class ListaArticulos
         while(it.hasNext())//los articulos que quedaron el la nueva lista se agregan a la listaArticulos
         {
             Articulo art = it.next();
-
-            System.out.println(art.getNombre());
+            System.out.println(art.getCantidad()+art.getNombre());
         }
     }
 }

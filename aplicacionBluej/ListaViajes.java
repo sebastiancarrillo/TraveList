@@ -29,19 +29,16 @@ public class ListaViajes
      * @return boolean de confirmacion
 
      */
-    public boolean agregarViaje(int añoIni, int mesIni,int diaIni , int dias, int noches, Clima clima, boolean balneario, int genero,String nombre)
+    public boolean agregarViaje(Viaje viaje)
     {
-        
         // put your code here
         try {//estas clases validan los parametros entonces aca no los validamos
-            Viaje viaje = new Viaje( añoIni, mesIni, diaIni, dias, noches, clima, balneario, genero, nombre);//1 es un hombre
             viajes.add(viaje);
         } catch (RuntimeException e) {
             //System.out.println("holaaaaaaaaaaaaaaa");
             return false;
         } 
-        
-        
+
         return true;
     }
     /**
@@ -69,10 +66,12 @@ public class ListaViajes
     public Viaje buscarViajeNombre( String nombre)
     {
         // put your code here
+        Viaje v;
         ListIterator<Viaje> it = viajes.listIterator();
          while (it.hasNext()){
-            Viaje v = it.next();
-            if (v.getNombre().equals(nombre)){
+            v = it.next();
+            if (nombre.equals(v.getNombre())){
+                System.out.println("Encontrado");
                 return v;
             }
         }

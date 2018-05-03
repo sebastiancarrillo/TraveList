@@ -95,7 +95,7 @@ public abstract class Item
      * solo se permiten nombres sin numeros  
      * 
      */
-    public  boolean validaNombre(String nombre)
+    public boolean validaNombre(String nombre)
     {
         //nombre.replaceAll("\\s","").trim().toUpperCase();
         if(!nombre.equals("") && nombre.length() <= 30 )

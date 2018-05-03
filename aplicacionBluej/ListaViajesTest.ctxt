@@ -15,5 +15,5 @@ comment4.target=void\ probarAgregarUnViaje()
 comment5.params=
 comment5.target=void\ probarEliminar()
 comment6.params=
-comment6.target=void\ probarbuscar()
+comment6.target=void\ probarBuscar()
 numComments=7

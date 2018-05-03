@@ -20,44 +20,43 @@ public class Viaje
     private Clima clima;  
     private boolean baño;  // indica si hay un cuerpo de agua cercano
     private int genero; //  si es mujer, 1 si es hombre
+    private Date inicio;
+    private Date fin;
 
     /**
      * Constructor for objects of class Viaje
      * 
 
      */
-    public Viaje(int añoIni,int mesIni, int diaIni , int dias, int noches, Clima clima, boolean balneario,int genero,String nombreViaje)
+    public Viaje(int añoInicio, int añoFin, int mesInicio, int mesFin,  int diaInicio, int diaFin,
+    int horaInicio, int horaFin, int minutoInicio, int minutoFin, int dias, int noches, 
+    Clima clima, boolean balneario, int genero, String nombreViaje)
     {
         try {//estas clases validan los parametros entonces aca no los validamos
             if(nombreViaje.length() >= 30)
             {
                 throw new RuntimeException("nombre muy largo");
             }
+            this.inicio = new Date(añoInicio,mesInicio,diaInicio,horaInicio,minutoInicio);
+            this.fin = new Date(añoFin,mesFin,diaFin,horaFin,minutoFin);
             listaArticulos = new ListaArticulos(dias, noches, clima, balneario, genero);//1 es un hombre 0una mujera
-            itinerario = new Itinerario(dias);
+            itinerario = new Itinerario(inicio, fin);
         } catch (RuntimeException e) {
             //System.out.println("holaaaaaaaaaaaaaaa");
             throw new RuntimeException("parametros de fechas, duracion o genero invalidos");
         } 
         // la fecha es validadaen esta clase :
-        Date fechaIni = new Date(añoIni,mesIni,diaIni);
-
         Date fechaActual = new Date();
-        if(fechaActual.getYear() <= fechaIni.getYear()){
-            if(fechaActual.getMonth() <= fechaIni.getMonth()){
-                if(fechaActual.getDate()<fechaIni.getDate()){
+        if(inicio.before(fechaActual)){
                     throw new RuntimeException("fecha invalida, debe ser mayor que la actual");
-                }
-            }
         }
         //si llega hasta aca los parametros son validos
-        this.fechaInicio=fechaIni;
         this.dias = dias;  
         this.noches = noches;
         this.clima = clima;
         this.baño = balneario;
         this.genero = genero;
-        this.nombre = nombreViaje.toUpperCase().replaceAll("\\s","").trim();
+        this.nombre = nombreViaje.toLowerCase().replaceAll("\\s","").trim();
     } 
 
     /**
@@ -163,7 +162,7 @@ public class Viaje
      * validar valores
      * 
      */
-    public boolean setDuracionViaje( int dias,int noches )
+    public boolean setDuracionViaje( int dias,int noches ) // Es necesario revisar este metodo pues se va a trabajar con fechas
     {
         // put your code here
 
@@ -173,7 +172,7 @@ public class Viaje
 
         boolean modLis = listaArticulos.regenerarLista( dias, noches,  this.clima,  this.baño, this.genero);
         //boolean modItin = Itinerario.modificarDuracion( dias );
-        itinerario.setDuracion(dias);
+        //itinerario.setFechaViaje(dias);
         if(modLis==true)
         {
             this.dias=dias;

@@ -1,90 +1,59 @@
-import java.sql.Time;
+import java.util.Date;
 /**
  * Actividad modelas las actividades
  * a realizar en el itinerario
  * 
-@author Sebastian Carrillo - Jhon Melendez 
+ * @author Sebastian Carrillo - Jhon Melendez 
  * @version v1
  */
 public class Actividad extends Item
 {
-    // instance variables - replace the example below with your own
-    private int diaInicio;   //manejamos los dias como enteros 1-primer dia, 2-segundo dia ...
-    private int diaFin;      //...  ////////////TODO : modificar tipo de fecha, usar DATE
-    private int duracion;    // Se usa para validar que la actividad no se haga fuera de la fecha del viaje
-    private Time horaInicio;  // esta hora debe cumplir el formato de hora militar,ej: 1630 son las 4:30 por ejemplo  
-    private Time horaFin;     //...  
-    private Estado estado;
-
+    private Date inicio; //Fecha en que inicia la actividad
+    private Date fin; //Fecha en que termina la actividad
+    private Estado estado; //Estado de la actividad
+    private int año;
+    private int mes; 
+    private Date inicioViaje;
+    private Date finViaje;
     /**
      * Constructor for objects of class Actividad
      * almacenar nombres con un estandar todo minuscula, quitar espacios inicio final
      */
-    public Actividad(String nombre, String descripcion, int diaInicio, int diaFin,
-    int duracion, Time horaInicio, Time horaFin)    
+    public Actividad(String nombre, String descripcion, int año, int mes, int diaInicio, int diaFin, 
+    int horaInicio, int horaFin, int minutoInicio, int minutoFin, Date inicioViaje, Date finViaje) 
     {
         super(nombre, descripcion);
-        this.diaInicio = diaInicio;
-        this.diaFin = diaFin;
-        this.duracion = duracion;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
+        inicio = new Date(año, mes, diaInicio, horaInicio, minutoInicio);
+        fin = new Date(año, mes, diaFin, horaFin, minutoFin);
+        this.año = año;
+        this.mes = mes;
         this.estado = Estado.ACTIVA;
-    }
-
-    public Actividad(String nombre, String descripcion,int duracion)    
-    {   
-        super(nombre, descripcion);
-        this.duracion = duracion;
-        this.estado = Estado.ACTIVA;
+        this.inicioViaje = inicioViaje;
+        this.finViaje = finViaje;
     }
 
     /**
      * metodo que devuelve la fecha de inicio
      * de la actividad
      *
-     * @return  Date con la fechaInicio de la actividad
+     * @return  Date con la fecha de inicio de la actividad
      */
-    public int getDiaInicio()
+    public Date getInicio()
     {
-        return this.diaInicio;
+        return this.inicio;
     }
-
+    
     /**
-     * metodo que devuelve la fecha de finalizacion
+     * metodo que devuelve la fecha de terminacion
      * de la actividad
      *
-     * @return  Date con la fechafin de la actividad
+     * @return  Date con la fecha de inicio de la actividad
      */
-    public int getDiaFin()
+    public Date getFin()
     {
-        return this.diaFin;
+        return this.fin;
     }
-
-    public int getDuracion(){
-        return this.duracion;
-    }
-
-    /**
-     * metodo que devuelve la horaInicio de la actividad
-     *
-     * @return  Time con la horaInicio de la actividad
-     */
-    public Time getHoraInicio()
-    {
-        return this.horaInicio;
-    }
-
-    /**
-     * metodo que devuelve la horaFin de la actividad
-     *
-     * @return  Time con la horaFin de la actividad
-     */
-    public Time getHoraFin()
-    {
-        return this.horaFin;
-    }
-
+    
     /**
      * metodo que devuelve el estado de la actividad
      *
@@ -96,16 +65,16 @@ public class Actividad extends Item
     }
 
     /**
-     * metodo que modifica la fechaInicio de la actividad
-     * ojo, validar la fecha antes menor a la duracion
+     * metodo que modifica la fecha de inicio de la actividad
      * 
-     * @param  nuevaFechaInicio
+     * @param  diaInicio, horaInicio, minutoInicio
      * @return  boolean para confirmar el cambio
      */
-    public boolean setDiaInicio( int nuevoDiaIn )
+    public boolean setInicio(int nuevoDiaInicio, int nuevaHoraInicio, int nuevoMinutoInicio)
     {   
-        if (nuevoDiaIn <= this.diaFin && nuevoDiaIn <= this.duracion){
-            this.diaInicio = nuevoDiaIn;
+        Date nuevoInicio = new Date(this.año, this.mes, nuevoDiaInicio, nuevaHoraInicio, nuevoMinutoInicio);
+        if (validaFecha(nuevoInicio,this.fin)){
+            this.inicio = nuevoInicio;
             return true;
         }
         else{
@@ -114,66 +83,100 @@ public class Actividad extends Item
     }
 
     /**
-     * metodo que modifica la fechaFin de la actividad
-     * ojo, validar la fecha antes menor a la duracion.
+     * metodo que modifica la fecha del fin de la actividad
      * 
-     * @param  nuevaFechaFin
+     * @param  diaFin, horaFin, minutoFin
      * @return  boolean para confirmar el cambio
      */
-    public boolean setDiaFin( int nuevoDiaFin )
+    public boolean setFin(int nuevoDiaFin, int nuevaHoraFin, int nuevoMinutoFin)
     {
-        if (nuevoDiaFin >= this.diaInicio && nuevoDiaFin <= this.duracion){
-            this.diaFin = nuevoDiaFin;
+        Date nuevoFin = new Date(this.año, this.mes, nuevoDiaFin, nuevaHoraFin, nuevoMinutoFin);
+        if (validaFecha(this.inicio,nuevoFin)){
+            this.fin = nuevoFin;
             return true;
         }
         else{
             return false;
         }
-    }
-
-    /**
-     * metodo que modifica la horaInicio de la actividad
-     * ojo, validar la hora antes, menor a 2400, mayor a 0
-     * @param  nuevaHoraInicio
-     * @return  boolean para confirmar el cambio
-     */
-    public boolean setHoraInicio( Time nuevaHoraIn )
-    {
-        if (nuevaHoraIn.before(this.horaFin)){
-            this.horaInicio = nuevaHoraIn;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * metodo que modifica la horaFin de la actividad
-     * ojo, validar la hora antes, menor a 2400, mayor a 0
-     * 
-     * @param  nuevaHoraFin
-     * @return  boolean para confirmar el cambio
-     */
-    public boolean setHoraFin( Time nuevaHoraFin )
-    {
-        if (nuevaHoraFin.after(horaFin)){
-            this.horaFin = nuevaHoraFin;
-            return true;
-        }
-        return false;
     }
 
     /**
      * metodo que cambia el estado de la actividad
      *
-     * @return  boolean de confirmacion 
      */
-    public void setEstado( Estado est)
+    public void setEstado(Estado est)
     {
         this.estado = est;
     }
 
-    public void setDuracion(int duracion){
-        this.duracion = duracion;
+    /**
+     * metodo que cambia la fecha de inicio y terminacion del viaje
+     * 
+     * @param nuevoInicioViaje
+     */
+    public void setFechaViaje(Date nuevoInicioViaje, Date nuevoFinViaje){
+        this.inicioViaje = nuevoInicioViaje;
+        this.finViaje = nuevoFinViaje;
+    }
+    
+    /**
+     * metodo que cambia el año de la actividad
+     * 
+     * @param nuevoAño
+     */
+    public void setAño(int nuevoAño){
+        this.año = nuevoAño;
+    }
+    
+    /**
+     * metodo que cambia el mes de la actividad
+     * 
+     * @param nuevoMes
+     */
+    public void setMes(int nuevoMes){
+        this.mes = nuevoMes;
+    }
+    
+    /**
+     * metodo que valida la fecha de la actividad
+     * 
+     * @param inicio, fin
+     */
+    public boolean validaFecha(Date inicio, Date fin){
+        if (inicio.before(fin) && inicio.after(this.inicioViaje) && fin.before(this.finViaje)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    /**
+     * metodo que valida la fecha de la actividad
+     * 
+     * @param inicio, fin
+     */
+    public boolean validaFecha(){
+        if (this.inicio.before(this.fin) && this.inicio.after(this.inicioViaje) && this.fin.before(this.finViaje)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    /**
+     * metodo que valida la fecha de la actividad
+     * 
+     * @param inicio, fin
+     */
+    public boolean validaFecha(Date inicio, Date fin, Date inicioViaje, Date finViaje){
+        if (inicio.before(fin) && inicio.after(inicioViaje) && fin.before(finViaje)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 }

@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.sql.Time;
+import java.util.Date;
 
 /**
  * The test class ActividadTest.
@@ -18,8 +18,8 @@ public class ActividadTest
      */
     public ActividadTest()
     {
-        prueba = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",
-                                        4, 4, 10, new Time(18,0,0), new Time(20,0,0));
+        prueba = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",2018,5,5,6,
+                               15,8,30,30,new Date(2018,5,2,3,0),new Date(2018,5,7,8,0));
     }
 
     /**
@@ -43,14 +43,13 @@ public class ActividadTest
     }
     
     @Test
-    public void pruebaMetodosGet(){  
+    public void pruebaMetodosGet(){ 
         assertEquals("RUMBEAR", prueba.getNombre());
         assertEquals("Salir a tomar y bailar con unos amigos", prueba.getDescripcion());
-        assertEquals(4, prueba.getDiaInicio());
-        assertEquals(4, prueba.getDiaFin());
-        assertEquals(10, prueba.getDuracion());
-        assertEquals(new Time(18,0,0), prueba.getHoraInicio());
-        assertEquals(new Time(20,0,0), prueba.getHoraFin());
+        Date result = new Date(2018,5,5,15,30);
+        assertEquals(result, prueba.getInicio());
+        result = new Date(2018,5,6,8,30);
+        assertEquals(result, prueba.getFin());
         assertEquals(Estado.ACTIVA, prueba.getEstado());
     }
     @Test
@@ -61,17 +60,12 @@ public class ActividadTest
         assertEquals(true, prueba.setDescripcion("Salir a tomar con amigos"));
         assertEquals(false, prueba.setDescripcion(""));
         assertEquals(false, prueba.setDescripcion("asdlñkfjsadlfkjsadlkfjsadlfkjsadlfkjsadklsjdflkasjflaskjflkasdfjasldkfjas"));
-        assertEquals(true, prueba.setDiaInicio(2));
-        assertEquals(false, prueba.setDiaInicio(5));
-        assertEquals(false, prueba.setDiaInicio(11));
-        prueba.setDiaInicio(4);
-        assertEquals(true, prueba.setDiaFin(5));
-        assertEquals(false, prueba.setDiaFin(2));
-        assertEquals(false, prueba.setDiaFin(11));
-        assertEquals(true, prueba.setHoraInicio(new Time(17,0,0)));
-        assertEquals(false, prueba.setHoraInicio(new Time(21,0,0)));
-        prueba.setHoraInicio(new Time(18,0,0));
-        assertEquals(true, prueba.setHoraFin(new Time(21,0,0)));
-        assertEquals(false, prueba.setHoraFin(new Time(17,0,0)));
+        assertEquals(true, prueba.setInicio(2,4,30));
+        assertEquals(false, prueba.setInicio(6,10,0));
+        assertEquals(false, prueba.setInicio(10,0,0));
+        prueba.setInicio(5,15,30);
+        assertEquals(true, prueba.setFin(5,16,0));
+        assertEquals(false, prueba.setFin(4,0,0));
+        assertEquals(false, prueba.setFin(1,2,0));
     }
 }

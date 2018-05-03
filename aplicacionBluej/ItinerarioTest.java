@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.sql.Time;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +19,7 @@ public class ItinerarioTest
      */
     public ItinerarioTest()
     {
-        prueba = new Itinerario(10);
+        prueba = new Itinerario(new Date(2018,5,2,8,30), new Date(2018,5,10,7,30));
     }
 
     /**
@@ -44,34 +44,36 @@ public class ItinerarioTest
 
     @Test
     public void puebaAgregaActividad(){
-        assertEquals(true, prueba.agregaActividad(new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",
-                    4, 4, 10, new Time(18,0,0), new Time(18,0,0))));
-        assertEquals(true, prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",
-                    4, 4, 10, new Time(16,0,0), new Time(18,0,0))));
-        assertEquals(false, prueba.agregaActividad(new Actividad("Nadar","Nadar en la playa",
-                    4, 4, 10, new Time(17,0,0), new Time(19,0,0))));                                
+        assertEquals(true, prueba.agregaActividad(new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",2018,5,5,6,
+                               15,8,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30))));
+        assertEquals(true, prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",2018,5,6,7,
+                               15,8,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30))));
+        assertEquals(false, prueba.agregaActividad(new Actividad("Nadar","Nadar en la playa",2018,5,6,8,
+                               12,8,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30))));                                
     }
 
     @Test
     public void pruebaBuscarActividadPorNombre()
-    {
-        ArrayList<Actividad> lista = new ArrayList();      
-        Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",4, 4, 10, new Time(18,0,0), new Time(18,0,0));
-        lista.add(actividad);
+    {     
+        Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",2018,5,5,6,
+                               15,8,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30));
         prueba.agregaActividad(actividad);
-        prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",4, 4, 10, new Time(16,0,0), new Time(18,0,0)));
-        assertEquals(lista,prueba.buscarActividadPorNombre("Rumbear"));
+        prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",2018,5,6,7,
+                               15,8,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30)));
+        assertEquals(actividad,prueba.buscarActividadPorNombre("Rumbear"));
+        assertEquals(null,prueba.buscarActividadPorNombre("Hola"));
     }
 
     @Test
-    public void pruebaSetDuracion(){
-        ArrayList<Actividad> lista = new ArrayList();       
-        Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",
-                9, 9, 10, new Time(18,0,0), new Time(18,0,0));
+    public void pruebaSetFechaViaje(){   
+        Actividad actividad = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",2018,5,5,6,
+                               15,8,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30));
         prueba.agregaActividad(actividad);
-        prueba.agregaActividad(new Actividad("Caminar","Salir a caminar",
-                4, 4, 10, new Time(16,0,0), new Time(18,0,0)));
-        prueba.setDuracion(8);
-        assertEquals(lista,prueba.buscarActividadPorNombre("Rumbear"));
+        Actividad actividad2 = new Actividad("Caminar","Salir a caminar",2018,5,6,7,
+                               15,6,30,30,new Date(2018,5,2,8,0),new Date(2018,5,10,7,30));
+        prueba.agregaActividad(actividad2);
+        prueba.setFechaViaje(new Date(2018,5,6,0,0),new Date(2018,5,10,7,30));
+        assertEquals(null,prueba.buscarActividadPorNombre("Rumbear"));
+        assertEquals(actividad2, prueba.buscarActividadPorNombre("Caminar"));
     }
 }

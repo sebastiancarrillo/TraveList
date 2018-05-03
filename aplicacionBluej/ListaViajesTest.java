@@ -14,13 +14,14 @@ import org.junit.Test;
 public class ListaViajesTest
 {
     ListaViajes lista;
+    Viaje viaje = new Viaje(2018, 2, 1, 10, 10, Clima.CALIDO, true, 0, "elmejor");
     /**
      * Default constructor for test class ListaViajesTest
      */
     public ListaViajesTest()
     {
-        lista= new ListaViajes();
-        lista.agregarViaje(2018, 2, 1, 10, 10, Clima.CALIDO, true, 0, "elmejor");
+        lista= new ListaViajes();        
+        lista.agregarViaje(viaje);
     }
 
     /**
@@ -46,25 +47,24 @@ public class ListaViajesTest
     @Test
     public void probarAgregarUnViaje()
     {
-        assertEquals(true, lista.agregarViaje(2018, 2, 1, 10, 10, Clima.CALIDO, true, 0, "eldmejor"));
+        assertEquals(true, lista.agregarViaje(viaje));
     }
 
     @Test
     public void probarEliminar()
     {
-        Viaje vi = lista.buscarViajeNombre("ELMEJOR");
+        Viaje vi = lista.buscarViajeNombre("elmejor");
         assertEquals(true,lista.eliminarViaje(vi));
         vi = lista.buscarViajeNombre("ELMEJOd");
         assertEquals(false,lista.eliminarViaje(vi));
     }
-        @Test
-    public void probarbuscar()
+    @Test
+    public void probarBuscar()
     {
-        Viaje vi = lista.buscarViajeNombre("ELMEJOR");
-        assertEquals(vi,lista.buscarViajeNombre("ELMEJOR"));
+        Viaje vi = lista.buscarViajeNombre("elmejor");
+        assertEquals(vi,lista.buscarViajeNombre("elmejor"));
         assertEquals(null,lista.buscarViajeNombre("zsvasv"));
     }
-    
 }
 
 

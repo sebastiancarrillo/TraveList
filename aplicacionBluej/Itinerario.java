@@ -12,64 +12,36 @@ import java.lang.Cloneable;
  */
 public class Itinerario
 {
-    private ArrayList<Actividad> itinerario;
-    private int duracion;
-
+    private ArrayList<Actividad> itinerario; //Lista que contiene 
+    private Date inicioViaje;
+    private Date finViaje;
     /**
      * Constructor for objects of class Itinerario
-     * toma la lista basica que contiene nombres y crea el itinerario asico
+     * toma la lista basica que contiene nombres y crea el itinerario basico
      * lista basica podria ser null
-     
      */
-    public Itinerario( int duracion )//debe pedir los datos del viaje duracion baño...
+    public Itinerario(Date inicioViaje, Date finViaje)
     {
-        // initialise instance variables
-        if(duracion <=0){
-            throw new RuntimeException("duracion invalida");
-        }
         itinerario = new ArrayList<Actividad>();
-        //seleccionarItinerarioBase();
-        this.duracion = duracion;
-    }
-    /**
-     * devuelve la lista del itinerario
-     * 
-
-     * @param  activiad a eliminar
-    */    
-    public ArrayList<Actividad> getItinerario()
-    {
-        return (ArrayList<Actividad>) itinerario.clone();
+        this.inicioViaje = inicioViaje;
+        this.finViaje = finViaje;
     }
     
     /**
-     * generar el itinerario del viaje
-     * ojooo solo se debe generar una vez,toma los datos 
-     * del viaje y genera una itinerario apropiado
-     * si ya existe solo debe poderse agregar 
+     * devuelve la lista del itinerario
      * 
-     * @return arreglo con el itinerario basico 
-     */
-    public void seleccionarItinerarioBase()
+     * @param  actividad a eliminar
+    */    
+    public ArrayList<Actividad> getItinerario()
     {
-        ArrayList<String> actividades = new ArrayList();
-        Scanner reader = new Scanner(System.in);
-        boolean answ;
-        actividades.add("Nadar");
-        actividades.add("Skiar");
-        actividades.add("Hacer Torrentismo");
-        actividades.add("Escalar");
-        actividades.add("Caminar");
-        for (String actividad:actividades){
-            System.out.println("Usted quiere " + actividad + "? Si=True o No=False");
-            answ = reader.nextBoolean();
-            if (answ){
-                itinerario.add(new Actividad(actividad,actividad, this.duracion));
-            }
+        if (itinerario != null && !itinerario.isEmpty())
+            return itinerario;
+        else{
+            return null;
         }
     }
-
-    /**
+    
+     /**
      * agrega una actividad a la lista de actividades
      * ojooo!!!revisa que no haya nada programado en ese intervalo
      * en ese intervalo de tiempo
@@ -77,37 +49,34 @@ public class Itinerario
      * @param  nueva activida a agregar
      * @return    true si se agrego exitosamente, false si no
      */
-    public boolean agregaActividad( Actividad nueva )
+    public boolean agregaActividad(Actividad nuevaActividad)
     {
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
-        boolean busy = true;
-        if(nueva.getHoraInicio() != null){
+        boolean busy = false;
+        if (nuevaActividad.validaFecha()){
             while(it.hasNext()){
                 actividad = it.next();
-                if (((nueva.getHoraInicio().before(actividad.getHoraInicio()) || 
-                nueva.getHoraInicio().equals(actividad.getHoraInicio())) &&
-                nueva.getHoraFin().after(actividad.getHoraInicio())) ||           
-                (nueva.getHoraInicio().before(actividad.getHoraInicio()) && 
-                nueva.getHoraInicio().after(actividad.getHoraInicio()))){
-                    busy = false;
+                if (!(nuevaActividad.validaFecha(nuevaActividad.getInicio(),nuevaActividad.getFin(),inicioViaje,actividad.getInicio()) ||
+                    nuevaActividad.validaFecha(nuevaActividad.getInicio(),nuevaActividad.getFin(),actividad.getFin(),finViaje))){
+                        busy = true;
                 }
             }
         }
-        if (busy == true){
-            this.itinerario.add(nueva);
+        if (!busy){
+            this.itinerario.add(nuevaActividad);
             return true;
         }
         return false;
-   }
+    }
    
-   /**
+    /**
      * elimina una actividad deseada
      * 
 
-     * @param  activiad a eliminar
+     * @param  actividad a eliminar
      */
-    public void eliminaActividad( Actividad actividad )
+    public void eliminaActividad(Actividad actividad)
     {
         itinerario.remove(actividad);
     }
@@ -115,34 +84,33 @@ public class Itinerario
     /**
      * encontrar actividad segun nombre
      * 
-     * @param  index int de la actividad
+     * @param  nombre de la actividad
      * @return    actividad encontrada o null
      */
-    public ArrayList<Actividad> buscarActividadPorNombre( String nombre )
+    public Actividad buscarActividadPorNombre(String nombre)
     {
-        ArrayList<Actividad> consulta = new ArrayList();
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
         nombre = nombre.trim().toUpperCase();
         while(it.hasNext()){
             actividad = it.next();
-            if (actividad.getNombre().contains(nombre)){
-                consulta.add(actividad);
+            if (actividad.getNombre().equals(nombre)){
+                return actividad; 
             }
         }
-        return consulta;  
+        return null;  
     }
     
-    public void setDuracion(int duracion){
+    public void setFechaViaje(Date nuevoInicioViaje, Date nuevoFinViaje){
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
         while (it.hasNext()){
             actividad = it.next();
-            if (actividad.getDiaInicio() > duracion || actividad.getDiaFin() > duracion){
-                eliminaActividad(actividad);
+            if (actividad.validaFecha(actividad.getInicio(),actividad.getFin(),nuevoInicioViaje,nuevoFinViaje)){
+                actividad.setFechaViaje(nuevoInicioViaje,nuevoFinViaje);
             }
             else{
-                actividad.setDuracion(duracion);
+                eliminaActividad(actividad);
             }
         }
     }
