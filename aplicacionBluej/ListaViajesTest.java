@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ListaViajesTest
 {
     ListaViajes lista;
-    Viaje viaje = new Viaje(2018, 2, 1, 10, 10, Clima.CALIDO, true, 0, "elmejor");
+    Viaje viaje = new Viaje(2018, 12, 1, 8, 10, 11, Clima.FRIO, true, 0,"elmejor");
     /**
      * Default constructor for test class ListaViajesTest
      */
@@ -53,7 +53,7 @@ public class ListaViajesTest
     @Test
     public void probarEliminar()
     {
-        Viaje vi = lista.buscarViajeNombre("elmejor");
+        Viaje vi = lista.buscarViajeNombre("ELMEJOR");
         assertEquals(true,lista.eliminarViaje(vi));
         vi = lista.buscarViajeNombre("ELMEJOd");
         assertEquals(false,lista.eliminarViaje(vi));

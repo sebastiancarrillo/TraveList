@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -9,7 +9,7 @@ import org.junit.Test;
  * The test class ViajeTest.
  *
  * @author  (your name)
- * @version (a version number or a date)
+ * @version (a version number or a GregorianCalendar)
  */
 public class ViajeTest
 {
@@ -19,7 +19,7 @@ public class ViajeTest
      */
     public ViajeTest()
     {
-        viaje1 = new Viaje(2018, 12, 1, 10, 11, Clima.FRIO, true, 0,"cancun");
+        viaje1 = new Viaje(2018, 12, 1, 8, 10, 11, Clima.FRIO, true, 0,"cancun");
     }
 
     /**
@@ -47,14 +47,15 @@ public class ViajeTest
     {
         assertEquals(true, viaje1.getBaño());
         assertEquals(Clima.FRIO, viaje1.getClima());
-        assertEquals(new Date(2018,12,1), viaje1.getFechaInicio());
+        assertEquals(new GregorianCalendar(2018,12,1,8,0,0), viaje1.getInicio());
     }
 
     @Test
-    public void pruebaSetHoraInicio()
+    public void pruebaSetInicio()
     {
-        assertEquals(false, viaje1.setFechaInicio(new Date(2018,11,30)));
-        assertEquals(true, viaje1.setFechaInicio(new Date(2018,12,30)));
+        assertEquals(true, viaje1.setInicio(new GregorianCalendar(2018,11,30,10,0,0)));
+        assertEquals(true, viaje1.setInicio(new GregorianCalendar(2018,12,30,10,0,0)));
+        assertEquals(false, viaje1.setInicio(new GregorianCalendar(2018,3,10,10,0,0)));
     }
 
     @Test
@@ -76,14 +77,6 @@ public class ViajeTest
     {
         viaje1.setBaño(false);
         assertEquals(false, viaje1.getBaño());
-    }
-    
-    @Test
-    public void probarSetFecha()
-    {
-        Date fecha = new Date();
-        viaje1.setFechaInicio(fecha);
-        assertEquals(fecha, viaje1.getFechaInicio());
     }
 }
 

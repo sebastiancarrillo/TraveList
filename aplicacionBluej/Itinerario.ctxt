@@ -2,7 +2,7 @@
 comment0.target=Itinerario
 comment0.text=\n\ Itinerario\ es\ una\ lista\ de\ actividadas\ programadas\ para\ \n\ el\ viaje,\ se\ podran\ modificar\ o\ agremas\ mas\ actividades\n\ \n\ @author\ Sebastian\ Carrillo\ -\ Jhon\ Melendez\ \n\ @version\ v1\n
 comment1.params=inicioViaje\ finViaje
-comment1.target=Itinerario(java.util.Date,\ java.util.Date)
+comment1.target=Itinerario(java.util.GregorianCalendar,\ java.util.GregorianCalendar)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Itinerario\n\ toma\ la\ lista\ basica\ que\ contiene\ nombres\ y\ crea\ el\ itinerario\ basico\n\ lista\ basica\ podria\ ser\ null\n
 comment2.params=
 comment2.target=java.util.ArrayList\ getItinerario()
@@ -17,5 +17,5 @@ comment5.params=nombre
 comment5.target=Actividad\ buscarActividadPorNombre(java.lang.String)
 comment5.text=\n\ encontrar\ actividad\ segun\ nombre\n\ \n\ @param\ \ nombre\ de\ la\ actividad\n\ @return\ \ \ \ actividad\ encontrada\ o\ null\n
 comment6.params=nuevoInicioViaje\ nuevoFinViaje
-comment6.target=void\ setFechaViaje(java.util.Date,\ java.util.Date)
+comment6.target=void\ setFechaViaje(java.util.GregorianCalendar,\ java.util.GregorianCalendar)
 numComments=7

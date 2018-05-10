@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.GregorianCalendar;
 /**
  * Actividad modelas las actividades
  * a realizar en el itinerario
@@ -8,23 +8,23 @@ import java.util.Date;
  */
 public class Actividad extends Item
 {
-    private Date inicio; //Fecha en que inicia la actividad
-    private Date fin; //Fecha en que termina la actividad
+    private GregorianCalendar inicio; //Fecha en que inicia la actividad
+    private GregorianCalendar fin; //Fecha en que termina la actividad
     private Estado estado; //Estado de la actividad
     private int año;
     private int mes; 
-    private Date inicioViaje;
-    private Date finViaje;
+    private GregorianCalendar inicioViaje;
+    private GregorianCalendar finViaje;
     /**
      * Constructor for objects of class Actividad
      * almacenar nombres con un estandar todo minuscula, quitar espacios inicio final
      */
     public Actividad(String nombre, String descripcion, int año, int mes, int diaInicio, int diaFin, 
-    int horaInicio, int horaFin, int minutoInicio, int minutoFin, Date inicioViaje, Date finViaje) 
+    int horaInicio, int horaFin, int minutoInicio, int minutoFin, GregorianCalendar inicioViaje, GregorianCalendar finViaje) 
     {
         super(nombre, descripcion);
-        inicio = new Date(año, mes, diaInicio, horaInicio, minutoInicio);
-        fin = new Date(año, mes, diaFin, horaFin, minutoFin);
+        this.inicio = new GregorianCalendar(año, mes, diaInicio, horaInicio, minutoInicio);
+        this.fin = new GregorianCalendar(año, mes, diaFin, horaFin, minutoFin);
         this.año = año;
         this.mes = mes;
         this.estado = Estado.ACTIVA;
@@ -36,9 +36,9 @@ public class Actividad extends Item
      * metodo que devuelve la fecha de inicio
      * de la actividad
      *
-     * @return  Date con la fecha de inicio de la actividad
+     * @return  GregorianCalendar con la fecha de inicio de la actividad
      */
-    public Date getInicio()
+    public GregorianCalendar getInicio()
     {
         return this.inicio;
     }
@@ -47,9 +47,9 @@ public class Actividad extends Item
      * metodo que devuelve la fecha de terminacion
      * de la actividad
      *
-     * @return  Date con la fecha de inicio de la actividad
+     * @return  GregorianCalendar con la fecha de inicio de la actividad
      */
-    public Date getFin()
+    public GregorianCalendar getFin()
     {
         return this.fin;
     }
@@ -72,7 +72,7 @@ public class Actividad extends Item
      */
     public boolean setInicio(int nuevoDiaInicio, int nuevaHoraInicio, int nuevoMinutoInicio)
     {   
-        Date nuevoInicio = new Date(this.año, this.mes, nuevoDiaInicio, nuevaHoraInicio, nuevoMinutoInicio);
+        GregorianCalendar nuevoInicio = new GregorianCalendar(this.año, this.mes, nuevoDiaInicio, nuevaHoraInicio, nuevoMinutoInicio);
         if (validaFecha(nuevoInicio,this.fin)){
             this.inicio = nuevoInicio;
             return true;
@@ -90,7 +90,7 @@ public class Actividad extends Item
      */
     public boolean setFin(int nuevoDiaFin, int nuevaHoraFin, int nuevoMinutoFin)
     {
-        Date nuevoFin = new Date(this.año, this.mes, nuevoDiaFin, nuevaHoraFin, nuevoMinutoFin);
+        GregorianCalendar nuevoFin = new GregorianCalendar(this.año, this.mes, nuevoDiaFin, nuevaHoraFin, nuevoMinutoFin);
         if (validaFecha(this.inicio,nuevoFin)){
             this.fin = nuevoFin;
             return true;
@@ -114,7 +114,7 @@ public class Actividad extends Item
      * 
      * @param nuevoInicioViaje
      */
-    public void setFechaViaje(Date nuevoInicioViaje, Date nuevoFinViaje){
+    public void setFechaViaje(GregorianCalendar nuevoInicioViaje, GregorianCalendar nuevoFinViaje){
         this.inicioViaje = nuevoInicioViaje;
         this.finViaje = nuevoFinViaje;
     }
@@ -142,7 +142,7 @@ public class Actividad extends Item
      * 
      * @param inicio, fin
      */
-    public boolean validaFecha(Date inicio, Date fin){
+    public boolean validaFecha(GregorianCalendar inicio, GregorianCalendar fin){
         if (inicio.before(fin) && inicio.after(this.inicioViaje) && fin.before(this.finViaje)){
             return true;
         }
@@ -170,7 +170,7 @@ public class Actividad extends Item
      * 
      * @param inicio, fin
      */
-    public boolean validaFecha(Date inicio, Date fin, Date inicioViaje, Date finViaje){
+    public boolean validaFecha(GregorianCalendar inicio, GregorianCalendar fin, GregorianCalendar inicioViaje, GregorianCalendar finViaje){
         if (inicio.before(fin) && inicio.after(inicioViaje) && fin.before(finViaje)){
             return true;
         }

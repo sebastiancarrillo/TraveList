@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * The test class ActividadTest.
@@ -19,7 +19,7 @@ public class ActividadTest
     public ActividadTest()
     {
         prueba = new Actividad("Rumbear","Salir a tomar y bailar con unos amigos",2018,5,5,6,
-                               15,8,30,30,new Date(2018,5,2,3,0),new Date(2018,5,7,8,0));
+                               15,8,30,30,new GregorianCalendar(2018,5,2,3,0),new GregorianCalendar(2018,5,7,8,0));
     }
 
     /**
@@ -46,9 +46,9 @@ public class ActividadTest
     public void pruebaMetodosGet(){ 
         assertEquals("RUMBEAR", prueba.getNombre());
         assertEquals("Salir a tomar y bailar con unos amigos", prueba.getDescripcion());
-        Date result = new Date(2018,5,5,15,30);
+        GregorianCalendar result = new GregorianCalendar(2018,5,5,15,30);
         assertEquals(result, prueba.getInicio());
-        result = new Date(2018,5,6,8,30);
+        result = new GregorianCalendar(2018,5,6,8,30);
         assertEquals(result, prueba.getFin());
         assertEquals(Estado.ACTIVA, prueba.getEstado());
     }

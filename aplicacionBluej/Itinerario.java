@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.ListIterator;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.lang.Cloneable;
 /**
@@ -13,14 +13,14 @@ import java.lang.Cloneable;
 public class Itinerario
 {
     private ArrayList<Actividad> itinerario; //Lista que contiene 
-    private Date inicioViaje;
-    private Date finViaje;
+    private GregorianCalendar inicioViaje;
+    private GregorianCalendar finViaje;
     /**
      * Constructor for objects of class Itinerario
      * toma la lista basica que contiene nombres y crea el itinerario basico
      * lista basica podria ser null
      */
-    public Itinerario(Date inicioViaje, Date finViaje)
+    public Itinerario(GregorianCalendar inicioViaje, GregorianCalendar finViaje)
     {
         itinerario = new ArrayList<Actividad>();
         this.inicioViaje = inicioViaje;
@@ -101,7 +101,7 @@ public class Itinerario
         return null;  
     }
     
-    public void setFechaViaje(Date nuevoInicioViaje, Date nuevoFinViaje){
+    public void setFechaViaje(GregorianCalendar nuevoInicioViaje, GregorianCalendar nuevoFinViaje){
         ListIterator<Actividad> it = itinerario.listIterator();
         Actividad actividad;
         while (it.hasNext()){

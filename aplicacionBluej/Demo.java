@@ -60,7 +60,7 @@ public class Demo
                             horaIni = reader2.nextInt();
                             System.out.println("Ingrese la hora final");
                             horaFin = reader2.nextInt();
-                            itinerario.agregaActividad(new Actividad(nombreActividad,descripcion, diaIni, diaFin, viaje.getDuracionViaje()[1], new Time(horaIni,0,0), new Time(horaFin,0,0)));     
+                            //itinerario.agregaActividad(new Actividad(nombreActividad,descripcion, diaIni, diaFin, viaje.getDuracionViaje()[1], new Time(horaIni,0,0), new Time(horaFin,0,0)));     
                             break;
                         } 
                         case 2:{
@@ -94,25 +94,25 @@ public class Demo
                                     case 3: {
                                         System.out.println("Ingrese el nuevo dia de inicio");
                                         diaIni = reader2.nextInt();
-                                        actividad.setDiaInicio(diaIni);
+                                        //actividad.setDiaInicio(diaIni);
                                         break;
                                     }
                                     case 4: {
                                         System.out.println("Ingrese el nuevo dia final");
                                         diaFin = reader2.nextInt();
-                                        actividad.setDiaFin(diaFin);
+                                        //actividad.setDiaFin(diaFin);
                                         break;
                                     }
                                     case 5: {
                                         System.out.println("Ingrese la hora de inicio");
                                         horaIni = reader2.nextInt();
-                                        actividad.setHoraInicio(new Time(horaIni,0,0));
+                                        //actividad.setHoraInicio(new Time(horaIni,0,0));
                                         break;
                                     }
                                     case 6: {
                                         System.out.println("Ingrese la hora final");
                                         horaFin = reader2.nextInt();
-                                        actividad.setHoraFin(new Time(horaFin,0,0));
+                                        //actividad.setHoraFin(new Time(horaFin,0,0));
                                         break;
                                     }
                                     case 7: nadamas = true; break;
@@ -261,7 +261,7 @@ public class Demo
                 System.out.println("En el lugar hay balneario? Si=true o No=false");
                 balneario = reader3.nextBoolean();
                 viajes = new ListaViajes();
-                viaje = new Viaje(añoIni,mesIni,diaIni,dias,noches,clima,balneario,genero,nombreViaje);
+                //viaje = new Viaje(añoIni,mesIni,diaIni,dias,noches,clima,balneario,genero,nombreViaje);
                 viajes.agregarViaje(viaje);
                 System.out.println("Desea ingresar a la lista de articulos o al itinerario? Articulos=true o Itinerario=false");
                 resp = reader3.nextBoolean();
@@ -381,7 +381,7 @@ public class Demo
                             horaIni = reader2.nextInt();
                             System.out.println("Ingrese la hora de finalizacion");
                             horaFin = reader2.nextInt();
-                            itinerario.agregaActividad(new Actividad(actividadNombre,descripcion, diaIni, diaFin, viaje.getDuracionViaje()[1], new Time(horaIni,0,0), new Time(horaFin,0,0)));
+                            //itinerario.agregaActividad(new Actividad(actividadNombre,descripcion, diaIni, diaFin, viaje.getDuracionViaje()[1], new Time(horaIni,0,0), new Time(horaFin,0,0)));
                         }
                     }
                     System.out.println("Desea agregar, modificar, eliminar alguna actividad o salir?");
@@ -400,7 +400,7 @@ public class Demo
                             horaIni = reader2.nextInt();
                             System.out.println("Ingrese la hora final");
                             horaFin = reader2.nextInt();
-                            itinerario.agregaActividad(new Actividad(nombreActividad,descripcion, diaIni, diaFin, viaje.getDuracionViaje()[1], new Time(horaIni,0,0), new Time(horaFin,0,0)));     
+                            //itinerario.agregaActividad(new Actividad(nombreActividad,descripcion, diaIni, diaFin, viaje.getDuracionViaje()[1], new Time(horaIni,0,0), new Time(horaFin,0,0)));     
                             break;
                         } 
                         case 2:{
@@ -434,25 +434,25 @@ public class Demo
                                     case 3: {
                                         System.out.println("Ingrese el nuevo dia de inicio");
                                         diaIni = reader2.nextInt();
-                                        actividad.setDiaInicio(diaIni);
+                                        //actividad.setDiaInicio(diaIni);
                                         break;
                                     }
                                     case 4: {
                                         System.out.println("Ingrese el nuevo dia final");
                                         diaFin = reader2.nextInt();
-                                        actividad.setDiaFin(diaFin);
+                                        //actividad.setDiaFin(diaFin);
                                         break;
                                     }
                                     case 5: {
                                         System.out.println("Ingrese la hora de inicio");
                                         horaIni = reader2.nextInt();
-                                        actividad.setHoraInicio(new Time(horaIni,0,0));
+                                        //actividad.setHoraInicio(new Time(horaIni,0,0));
                                         break;
                                     }
                                     case 6: {
                                         System.out.println("Ingrese la hora final");
                                         horaFin = reader2.nextInt();
-                                        actividad.setHoraFin(new Time(horaFin,0,0));
+                                        //actividad.setHoraFin(new Time(horaFin,0,0));
                                         break;
                                     }
                                     case 7: nadamas = true; break;

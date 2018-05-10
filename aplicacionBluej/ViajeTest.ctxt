@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ViajeTest
-comment0.text=\n\ The\ test\ class\ ViajeTest.\n\n\ @author\ \ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ The\ test\ class\ ViajeTest.\n\n\ @author\ \ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ GregorianCalendar)\n
 comment1.params=
 comment1.target=ViajeTest()
 comment1.text=\n\ Default\ constructor\ for\ test\ class\ ViajeTest\n
@@ -13,13 +13,11 @@ comment3.text=\n\ Tears\ down\ the\ test\ fixture.\n\n\ Called\ after\ every\ te
 comment4.params=
 comment4.target=void\ pruebaMetodosGet()
 comment5.params=
-comment5.target=void\ pruebaSetHoraInicio()
+comment5.target=void\ pruebaSetInicio()
 comment6.params=
 comment6.target=void\ probarSetDuracion()
 comment7.params=
 comment7.target=void\ probarSetClima()
 comment8.params=
 comment8.target=void\ probarSetBa\u00F1o()
-comment9.params=
-comment9.target=void\ probarSetFecha()
-numComments=10
+numComments=9
