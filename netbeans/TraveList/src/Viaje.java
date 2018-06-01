@@ -27,7 +27,7 @@ public class Viaje
      * 
 
      */
-    public Viaje(int añoInicio,int mesInicio,int diaInicio, int horaInicio, int dias,int noches,
+    public Viaje(GregorianCalendar inicio, int dias,int noches,
     Clima clima,boolean balneario,int genero,String nombreViaje)
     {
         try {//estas clases validan los parametros entonces aca no los validamos
@@ -35,7 +35,7 @@ public class Viaje
             {
                 throw new RuntimeException("nombre muy largo");
             }
-            this.inicio = new GregorianCalendar(añoInicio,mesInicio,diaInicio,horaInicio,0,0);
+            this.inicio = inicio;
             this.fin = (GregorianCalendar) this.inicio.clone();
             this.fin.add(this.fin.HOUR,(dias+noches)*12);
         } catch (RuntimeException e) {

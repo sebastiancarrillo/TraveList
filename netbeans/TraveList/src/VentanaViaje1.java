@@ -16,7 +16,7 @@ public class VentanaViaje1 extends javax.swing.JFrame {
     /**
      * Creates new form VentanaNuevoViaje3
      */
-    public VentanaViaje1() {
+    public VentanaViaje1(Viaje viaje) {
         initComponents();
     }
 
@@ -109,7 +109,7 @@ public class VentanaViaje1 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
-        new VentanaNuevoViaje1(this).setVisible(true);
+        new VentanaNuevoViaje1(this,new ListaViajes()).setVisible(true); // Hay que arreglar esto
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -151,11 +151,6 @@ public class VentanaViaje1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaViaje1().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -165,4 +160,5 @@ public class VentanaViaje1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+    private Viaje viaje;
 }

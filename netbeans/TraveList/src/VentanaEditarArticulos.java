@@ -16,8 +16,9 @@ public class VentanaEditarArticulos extends javax.swing.JFrame {
     /**
      * Creates new form VentanaEditarArticulos
      */
-    public VentanaEditarArticulos(JFrame anterior) {
+    public VentanaEditarArticulos(JFrame anterior, ListaArticulos articulos) {
         this.anterior = anterior;
+        this.articulos = articulos;
         initComponents();
     }
 
@@ -110,7 +111,8 @@ public class VentanaEditarArticulos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        anterior.setVisible(true); //Aca tiene que hacer lo mismo, actulizar antes de poder guardar para volver a la vista de articulos
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -140,12 +142,6 @@ public class VentanaEditarArticulos extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaEditarArticulos(new JFrame()).setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -157,4 +153,5 @@ public class VentanaEditarArticulos extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
     private JFrame anterior;
+    private ListaArticulos articulos;
 }

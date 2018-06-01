@@ -16,7 +16,7 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
     /**
      * Creates new form VentanaArticulos1
      */
-    public VentanaArticulos1(JFrame anterior ) {
+    public VentanaArticulos1(JFrame anterior, ListaArticulos articulos) {
         this.anterior = anterior;
         initComponents();
     }
@@ -157,12 +157,6 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaArticulos1(new JFrame()).setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,7 +13,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     /**
      * Creates new form Ventanas
      */
-    public VentanaInicio() {
+    public VentanaInicio(ListaViajes viajes) {
+        this.viajes = viajes;
         initComponents();
     }
 
@@ -100,7 +101,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        new VentanaNuevoViaje1(this).setVisible(true);
+        new VentanaNuevoViaje1(this, viajes).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -134,7 +135,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaInicio().setVisible(true);
+                new VentanaInicio(new ListaViajes()).setVisible(true);
             }
         });
     }
@@ -145,4 +146,5 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+    private ListaViajes viajes;
 }
