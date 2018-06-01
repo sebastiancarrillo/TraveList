@@ -129,6 +129,9 @@ public class Viaje
         return (GregorianCalendar) inicio.clone();
     }
 
+    public GregorianCalendar getFin(){
+        return (GregorianCalendar) this.fin.clone();
+    }
     /**
      * obtener duracion 
      * 

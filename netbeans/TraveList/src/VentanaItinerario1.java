@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /*
@@ -16,9 +17,10 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
     /**
      * Creates new form VentanaItinerario1
      */
-    public VentanaItinerario1(JFrame anterior) {
-        initComponents();
+    public VentanaItinerario1(JFrame anterior, Viaje viaje) {
         this.anterior = anterior;
+        this.viaje = viaje;
+        initComponents();    
     }
 
     /**
@@ -39,6 +41,7 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
         jCheckBox5 = new javax.swing.JCheckBox();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox6 = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -50,15 +53,47 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("URW Palladio L", 1, 24)); // NOI18N
         jLabel2.setText("TraveList");
 
-        jCheckBox3.setText("jCheckBox3");
+        jCheckBox3.setText("Hacer torrentismo");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox4.setText("jCheckBox4");
+        jCheckBox4.setText("Escalar");
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox5.setText("jCheckBox5");
+        jCheckBox5.setText("Caminar");
+        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox5ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox1.setText("jCheckBox1");
+        jCheckBox1.setText("Nadar");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setText("jCheckBox2");
+        jCheckBox2.setText("Skiar");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox6.setText("Ir de compras");
+        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,7 +106,8 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
                     .addComponent(jCheckBox5)
                     .addComponent(jCheckBox3)
                     .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox4))
+                    .addComponent(jCheckBox4)
+                    .addComponent(jCheckBox6))
                 .addContainerGap(204, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -86,7 +122,9 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
                 .addComponent(jCheckBox4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox5)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox6)
+                .addGap(0, 43, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -117,39 +155,40 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(12, 12, 12)
                             .addComponent(jButton1)
                             .addGap(18, 18, 18)
                             .addComponent(jButton2))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(163, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(25, 25, 25)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -161,8 +200,39 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        new VentanaItinerario2(anterior,viaje).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        this.setVisible(false);
+        new VentanaAñadirActividad(this,viaje,"Escalar").setVisible(true);
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        this.setVisible(false);
+        new VentanaAñadirActividad(this,viaje,"Nadar").setVisible(true);
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        this.setVisible(false);
+        new VentanaAñadirActividad(this,viaje,"Skiar").setVisible(true);
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        this.setVisible(false);
+        new VentanaAñadirActividad(this,viaje,"Hacer Torrentismo").setVisible(true);
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+        this.setVisible(false);
+        new VentanaAñadirActividad(this,viaje,"Caminar").setVisible(true);
+    }//GEN-LAST:event_jCheckBox5ActionPerformed
+
+    private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
+        this.setVisible(false);
+        new VentanaAñadirActividad(this,viaje,"Ir De Compras").setVisible(true);
+    }//GEN-LAST:event_jCheckBox6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,12 +261,6 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaItinerario1(new JFrame()).setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -207,6 +271,7 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -214,4 +279,5 @@ public class VentanaItinerario1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
     private JFrame anterior;
+    private Viaje viaje;
 }

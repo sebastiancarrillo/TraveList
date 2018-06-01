@@ -3,6 +3,8 @@ import java.util.ListIterator;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.lang.Cloneable;
+import java.util.Collections;
+import java.util.Comparator;
 /**
  * Itinerario es una lista de actividadas programadas para 
  * el viaje, se podran modificar o agremas mas actividades
@@ -41,6 +43,16 @@ public class Itinerario
         }
     }
     
+    public GregorianCalendar getInicioViaje()
+    {
+        return (GregorianCalendar) inicioViaje.clone();
+    }
+    
+    public GregorianCalendar getFinViaje()
+    {
+        return (GregorianCalendar) finViaje.clone();
+    }
+    
      /**
      * agrega una actividad a la lista de actividades
      * ojooo!!!revisa que no haya nada programado en ese intervalo
@@ -62,6 +74,9 @@ public class Itinerario
                         busy = true;
                 }
             }
+        }
+        else{
+            busy = true;
         }
         if (!busy){
             this.itinerario.add(nuevaActividad);
@@ -113,5 +128,26 @@ public class Itinerario
                 eliminaActividad(actividad);
             }
         }
+    }
+    
+    public void ordenarPorFecha(){
+        Collections.sort(itinerario, new FechaComparador());
+    }
+    
+    class FechaComparador implements Comparator<Actividad> {
+        @Override
+        public int compare(Actividad a, Actividad b) {
+            return a.getInicio().before(b.getInicio()) ? -1 : a.getInicio().equals(b.getInicio()) ? 0 : 1;
+        }
+    }
+    
+    public String mostrarItinerario(){
+        String imprimir = "";
+        for (Actividad actividad : itinerario){
+            GregorianCalendar inicio = actividad.getInicio();
+            GregorianCalendar fin = actividad.getFin();
+            imprimir = imprimir+(inicio.get(inicio.MONTH)+1)+"/"+inicio.get(inicio.DAY_OF_MONTH)+" "+inicio.get(inicio.HOUR)+":"+inicio.get(inicio.MINUTE)+"-"+(fin.get(inicio.MONTH)+1)+"/"+fin.get(inicio.DAY_OF_MONTH)+" "+fin.get(inicio.HOUR)+":"+fin.get(inicio.MINUTE)+" "+actividad.getNombre()+" "+actividad.getDescripcion()+"\n";
+        }
+        return imprimir;
     }
 }

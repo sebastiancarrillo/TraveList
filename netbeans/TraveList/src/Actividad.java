@@ -11,27 +11,25 @@ public class Actividad extends Item
     private GregorianCalendar inicio; //Fecha en que inicia la actividad
     private GregorianCalendar fin; //Fecha en que termina la actividad
     private Estado estado; //Estado de la actividad
-    private int año;
-    private int mes; 
     private GregorianCalendar inicioViaje;
     private GregorianCalendar finViaje;
     /**
      * Constructor for objects of class Actividad
      * almacenar nombres con un estandar todo minuscula, quitar espacios inicio final
      */
-    public Actividad(String nombre, String descripcion, int año, int mes, int diaInicio, int diaFin, 
-    int horaInicio, int horaFin, int minutoInicio, int minutoFin, GregorianCalendar inicioViaje, GregorianCalendar finViaje) 
+    public Actividad(String nombre, String descripcion, GregorianCalendar inicio, int duracionHoras,
+            int duracionMinutos, GregorianCalendar inicioViaje, GregorianCalendar finViaje) 
     {
         super(nombre, descripcion);
-        this.inicio = new GregorianCalendar(año, mes, diaInicio, horaInicio, minutoInicio);
-        this.fin = new GregorianCalendar(año, mes, diaFin, horaFin, minutoFin);
-        this.año = año;
-        this.mes = mes;
+        this.inicio = inicio;
+        this.fin = (GregorianCalendar) this.inicio.clone();
+        this.fin.add(this.fin.HOUR,duracionHoras);
+        this.fin.add(this.fin.MINUTE,duracionMinutos);
         this.estado = Estado.ACTIVA;
         this.inicioViaje = inicioViaje;
         this.finViaje = finViaje;
     }
-
+    
     /**
      * metodo que devuelve la fecha de inicio
      * de la actividad
@@ -40,7 +38,7 @@ public class Actividad extends Item
      */
     public GregorianCalendar getInicio()
     {
-        return this.inicio;
+        return (GregorianCalendar) this.inicio.clone();
     }
     
     /**
@@ -51,7 +49,7 @@ public class Actividad extends Item
      */
     public GregorianCalendar getFin()
     {
-        return this.fin;
+        return (GregorianCalendar) this.fin.clone();
     }
     
     /**
@@ -70,9 +68,8 @@ public class Actividad extends Item
      * @param  diaInicio, horaInicio, minutoInicio
      * @return  boolean para confirmar el cambio
      */
-    public boolean setInicio(int nuevoDiaInicio, int nuevaHoraInicio, int nuevoMinutoInicio)
+    public boolean setInicio(GregorianCalendar nuevoInicio)
     {   
-        GregorianCalendar nuevoInicio = new GregorianCalendar(this.año, this.mes, nuevoDiaInicio, nuevaHoraInicio, nuevoMinutoInicio);
         if (validaFecha(nuevoInicio,this.fin)){
             this.inicio = nuevoInicio;
             return true;
@@ -88,9 +85,8 @@ public class Actividad extends Item
      * @param  diaFin, horaFin, minutoFin
      * @return  boolean para confirmar el cambio
      */
-    public boolean setFin(int nuevoDiaFin, int nuevaHoraFin, int nuevoMinutoFin)
+    public boolean setFin(GregorianCalendar nuevoFin)
     {
-        GregorianCalendar nuevoFin = new GregorianCalendar(this.año, this.mes, nuevoDiaFin, nuevaHoraFin, nuevoMinutoFin);
         if (validaFecha(this.inicio,nuevoFin)){
             this.fin = nuevoFin;
             return true;
@@ -117,24 +113,6 @@ public class Actividad extends Item
     public void setFechaViaje(GregorianCalendar nuevoInicioViaje, GregorianCalendar nuevoFinViaje){
         this.inicioViaje = nuevoInicioViaje;
         this.finViaje = nuevoFinViaje;
-    }
-    
-    /**
-     * metodo que cambia el año de la actividad
-     * 
-     * @param nuevoAño
-     */
-    public void setAño(int nuevoAño){
-        this.año = nuevoAño;
-    }
-    
-    /**
-     * metodo que cambia el mes de la actividad
-     * 
-     * @param nuevoMes
-     */
-    public void setMes(int nuevoMes){
-        this.mes = nuevoMes;
     }
     
     /**
