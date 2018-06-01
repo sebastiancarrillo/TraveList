@@ -1,4 +1,4 @@
-
+ 
 /**
  * modela un articulo con nombre descripcion canidad y estado
  * 

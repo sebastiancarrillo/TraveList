@@ -1,12 +1,13 @@
 
 import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jhon
@@ -15,8 +16,12 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaSeleccionar
+     *
+     * @param anterior
+     * @param viajes
      */
-    public VentanaSeleccionar(JFrame anterior) {
+    public VentanaSeleccionar(JFrame anterior, ListaViajes viajes) {
+        this.viajes = viajes;
         this.anterior = anterior;
         initComponents();
     }
@@ -35,15 +40,18 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jhon/NetBeansProjects/TraveList/images/logo.jpg")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("URW Palladio L", 1, 24)); // NOI18N
         jLabel2.setText("TraveList");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,10 +60,17 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Seleccionar");
+        jButton2.setText("actualizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("seleccionar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -77,7 +92,10 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jButton4)))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -92,7 +110,9 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
                         .addComponent(jLabel2)))
                 .addGap(60, 60, 60)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -108,9 +128,30 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-        //new VentanaViaje1().setVisible(true);
+        //jComboBox1.removeAllItems();
+
+        ArrayList<Viaje> lv = viajes.getViajes();
+        if (lv.size() > 0) {
+            for (Iterator<Viaje> it = lv.iterator(); it.hasNext();) {
+                Viaje viaje = it.next();
+                jComboBox1.addItem(viaje.getNombre());
+            } //new VentanaViaje1().setVisible(true);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        int i = jComboBox1.getSelectedIndex();
+        Viaje v = viajes.getViajes().get(i);  
+        new VentanaViaje1(this ,v).setVisible(true);
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,7 +183,7 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaSeleccionar(new JFrame()).setVisible(true);
+                new VentanaSeleccionar(new JFrame(), new ListaViajes()).setVisible(true);
             }
         });
     }
@@ -150,9 +191,11 @@ public class VentanaSeleccionar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
-    private JFrame anterior;
+    private final JFrame anterior;
+    private ListaViajes viajes;
 }

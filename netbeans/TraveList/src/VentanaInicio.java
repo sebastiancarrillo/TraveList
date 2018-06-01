@@ -16,6 +16,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     public VentanaInicio(ListaViajes viajes) {
         this.viajes = viajes;
         initComponents();
+
     }
 
     /**
@@ -96,7 +97,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        new VentanaSeleccionar(this).setVisible(true);
+        new VentanaSeleccionar(this,viajes).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -15,8 +15,12 @@ public class VentanaViaje1 extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaNuevoViaje3
+     * @param anterior
+     * @param viaje objetod e tipo viaje
      */
-    public VentanaViaje1(Viaje viaje) {
+    public VentanaViaje1(JFrame anterior ,Viaje viaje) {
+        this.anterior = anterior;
+        this.viaje = viaje;
         initComponents();
     }
 
@@ -34,10 +38,9 @@ public class VentanaViaje1 extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jhon/NetBeansProjects/TraveList/images/logo.jpg")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("URW Palladio L", 1, 24)); // NOI18N
         jLabel2.setText("TraveList");
@@ -64,6 +67,13 @@ public class VentanaViaje1 extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("volver");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,6 +94,10 @@ public class VentanaViaje1 extends javax.swing.JFrame {
                                 .addComponent(jButton3)
                                 .addGap(10, 10, 10)))))
                 .addContainerGap(131, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +115,9 @@ public class VentanaViaje1 extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(jButton4)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,13 +130,21 @@ public class VentanaViaje1 extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        new VentanaArticulos1(this).setVisible(true);
+        ListaArticulos listaArticulos= viaje.getListaArticulos();
+        
+        new VentanaArticulos1(this, listaArticulos).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
         new VentanaItinerario1(this).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        anterior.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,8 +181,10 @@ public class VentanaViaje1 extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
     private Viaje viaje;
+    private final JFrame anterior;
 }

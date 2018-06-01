@@ -297,7 +297,7 @@ public class VentanaNuevoViaje1 extends javax.swing.JFrame {
         Viaje viaje = new Viaje(inicio, dias, noches, clima, balneario, genero, nombre);      
         viajes.agregarViaje(viaje);
         this.setVisible(false);
-        new VentanaViaje1(viaje).setVisible(true);
+        new VentanaViaje1(anterior ,viaje).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -376,6 +376,6 @@ public class VentanaNuevoViaje1 extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
-    private JFrame anterior;
+    private final JFrame anterior;
     private ListaViajes viajes;
 }

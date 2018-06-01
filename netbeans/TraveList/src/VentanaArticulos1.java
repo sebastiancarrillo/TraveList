@@ -1,6 +1,9 @@
 
 import javax.swing.JFrame;
-
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseEvent;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +16,8 @@ import javax.swing.JFrame;
  */
 public class VentanaArticulos1 extends javax.swing.JFrame {
 
+   private  DefaultTableModel dtm = new DefaultTableModel();
+   private long tiempo ; // para contar tiempo que dura oprimido el mouse
     /**
      * Creates new form VentanaArticulos1
      */
@@ -20,8 +25,47 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
         this.anterior = anterior;
         this.articulos = articulos;
         initComponents();
+        //jTextArea1.setText("holaaaa");
+        actualizaLista();
+
+
+        
     }
 
+    public void actualizaLista() {
+       
+        String[] titulo = new String[]{"Articulo","prioridad","cantidad","estado"};
+        dtm.setColumnIdentifiers(titulo);
+        jTable2.setModel(dtm);
+        ArrayList<Articulo> listArt = articulos.getListaArticulos();
+        //String s = "";
+        int cont = 0;
+        for (Articulo ar : listArt) {
+            cont++;
+            String s="";
+            //s = s + "-" + cont + " -->" + ar.getNombre() + "\n";
+            if (ar.getEstado() == true) {
+                s = "x";
+            }
+            String prior="";
+            if (ar.getPrioriad() == Prioridad.BAJA) {
+                prior=prior+"-----";
+            } else {
+                if (ar.getPrioriad() == Prioridad.MEDIA) {
+                    prior=prior+"------||||||";
+                } else {
+                    prior=prior+"------||||||~~~~~~~";
+                }
+            }
+            dtm.addRow(new Object []{
+                
+                ar.getNombre(),prior,ar.getCantidad(),s
+            });
+        }
+
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,33 +78,55 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jhon/NetBeansProjects/TraveList/images/logo.jpg")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("URW Palladio L", 1, 24)); // NOI18N
         jLabel2.setText("TraveList");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setShowVerticalLines(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable2MouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        jScrollPane1.setViewportView(jScrollPane2);
 
         jButton1.setText("Añadir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Editar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -71,6 +137,12 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Click izquierdo + click derecho para ver más...");
+
+        jLabel4.setText("Deberias probar:");
+
+        jLabel5.setText("o mantener presionado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,38 +151,46 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(188, 188, 188)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(130, 130, 130)
                                 .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)
-                                .addGap(12, 12, 12)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(115, Short.MAX_VALUE))
+                                .addGap(82, 82, 82)
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel5)))))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel2)))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addContainerGap())
         );
 
         pack();
@@ -118,18 +198,50 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        new VentanaAñadirArticulo(this).setVisible(true);
+        new VentanaAñadirArticulo(this,articulos).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-        new VentanaEditarArticulos(this).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
         anterior.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        //tiempo = System.currentTimeMillis();
+      
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
+        // TODO add your handling code here:
+        int i = jTable2.getSelectedRow();
+        
+        if (evt.getButton() == MouseEvent.BUTTON2) {//tuvo oprimido el mouse y quiere editar o borrar
+            Articulo a = articulos.getListaArticulos().get(i);
+            this.setVisible(false);
+           
+            new VentanaEditarArticulos(this, a,articulos).setVisible(true);
+        } else {//resiona y suelta rapido
+            if (evt.getButton() == MouseEvent.BUTTON3) {//clic derecho para ver mas
+
+                if (i >= 0) {
+                    System.out.println("mosdvkmlvd");
+                    JOptionPane.showMessageDialog(this, articulos.getListaArticulos().get(i).getDescripcion());
+                }
+            } else {
+                if (i >= 0) {
+                    for (int j = 0; j < articulos.getListaArticulos().size(); j++) {
+                        dtm.removeRow(0);
+                    }
+
+                    boolean est = articulos.getListaArticulos().get(i).getEstado();
+                    articulos.getListaArticulos().get(i).setEstado(!est);
+                            actualizaLista();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jTable2MouseReleased
 
     /**
      * @param args the command line arguments
@@ -162,13 +274,16 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
-    private JFrame anterior;
+    private final JFrame anterior;
     private ListaArticulos articulos;
 }
