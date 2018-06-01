@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jhon/NetBeansProjects/TraveList/src/ViajeTest.java</file>
-            <file>file:/home/jhon/NetBeansProjects/TraveList/src/Actividad.java</file>
-            <file>file:/home/jhon/NetBeansProjects/TraveList/src/Demo.java</file>
-            <file>file:/home/jhon/NetBeansProjects/TraveList/src/Ventana.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/ListaArticulos.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/Clima.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/TraveList.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaArticulos1.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/ListaViajes.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaEditarArticulos.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaNuevoViaje1.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaInicio.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaViaje1.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaSeleccionar.java</file>
+            <file>file:/home/jhon/NetBeansProjects/TraveList/src/VentanaAñadirArticulo.java</file>
         </group>
     </open-files>
 </project-private>

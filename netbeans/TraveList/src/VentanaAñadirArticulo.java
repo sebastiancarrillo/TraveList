@@ -16,8 +16,9 @@ public class VentanaAñadirArticulo extends javax.swing.JFrame {
     /**
      * Creates new form VentanaAñadirArticulo
      */
-    public VentanaAñadirArticulo(JFrame anterior) {
+    public VentanaAñadirArticulo(JFrame anterior, ListaArticulos articulos) {
         this.anterior = anterior;
+        this.articulos = articulos;
         initComponents();
     }
 
@@ -75,6 +76,11 @@ public class VentanaAñadirArticulo extends javax.swing.JFrame {
         });
 
         jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,6 +154,11 @@ public class VentanaAñadirArticulo extends javax.swing.JFrame {
         anterior.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        anterior.setVisible(true); // Aca tiene que hacer la parte de que se guarde y se actualice la ventana de articulosa antes de mostrarla
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -174,13 +185,6 @@ public class VentanaAñadirArticulo extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaAñadirArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaAñadirArticulo(new JFrame()).setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -198,4 +202,5 @@ public class VentanaAñadirArticulo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
     private JFrame anterior;
+    private ListaArticulos articulos;
 }

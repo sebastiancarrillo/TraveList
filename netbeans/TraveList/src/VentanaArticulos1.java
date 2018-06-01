@@ -18,6 +18,7 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
      */
     public VentanaArticulos1(JFrame anterior, ListaArticulos articulos) {
         this.anterior = anterior;
+        this.articulos = articulos;
         initComponents();
     }
 
@@ -169,4 +170,5 @@ public class VentanaArticulos1 extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
     private JFrame anterior;
+    private ListaArticulos articulos;
 }
