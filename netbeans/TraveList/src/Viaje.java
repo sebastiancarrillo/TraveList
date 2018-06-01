@@ -86,6 +86,9 @@ public class Viaje
      * 
      * @return entero que representa el numero de dias del viaje
      */
+    public int getGenero(){
+        return genero;
+    }
     public int getNoches(){
         return noches;
     }
